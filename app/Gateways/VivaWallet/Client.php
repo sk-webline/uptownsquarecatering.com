@@ -208,4 +208,9 @@ class Client
         ];
     }
 
+    public function getBearerToken()
+    {
+        return $this->bearer_token;
+    }
+
 }

@@ -11,13 +11,46 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6"> <a href="{{route('organisations.index')}}" class="text-black" >{{translate('Organisations')}} </a> > {{$organisation->name}} >
-                            <a href="{{route('organisation_settings.index', $organisation->id)}}" class="text-black" >{{translate('Periods')}} </a> >
-                            {{translate('Add New Period')}}</h5>
+                            <a href="{{route('catering.index', $organisation->id)}}" class="text-black" >{{translate('Periods')}} </a> >
+                            {{translate('Add New Catering Period')}}</h5>
                     </div>
 
                     <div class="card-body">
 
                         @csrf
+
+                        <div class="card p-15px">
+
+                            <div class="form-group row">
+                                <label class="col-md-4 col-form-label">{{translate('Load Setting from Catering Periods')}}</label>
+                                <div class="col-md-2">
+                                    <div class="form-group row">
+                                        <label class="sk-switch sk-switch-success mb-0 pt-1 pl-3">
+                                            <input type="checkbox" name="sync_periods">
+                                            <input type="hidden" name="sync_periods_complete" value="0">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 sync-period d-none">
+                                    <div class="form-group row">
+
+                                        <select class="select2 form-control sk-selectpicker" name="periods_sync_select" data-toggle="select2" data-placeholder="Choose ...">
+                                            @php
+                                                $canteen_settings = \App\Models\CanteenSetting::where('organisation_id', $organisation->id)->where('date_to', '>', \Carbon\Carbon::today()->format('Y-m-d'))->get();  // catering periods
+                                            @endphp
+                                            <option hidden value="">{{translate('Select Catering Period')}}</option>
+                                            @foreach ($canteen_settings as $period)
+                                                <option value="{{$period->id}}">{{ \Carbon\Carbon::create($period->date_from)->format('d/m/Y')}} -  {{ \Carbon\Carbon::create($period->date_to)->format('d/m/Y')}}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">{{translate('Start Date')}}</label>
                             <div class="col-md-9">
@@ -42,51 +75,7 @@
 
 
                         @if($organisation->catering==1)
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">{{translate('Max Snack Quantity')}}</label>
-                                <div class="col-md-9">
-                                    <input type="number" placeholder="{{translate('Max Snack Quantity')}}"
-                                           onchange="setMaxQuantitySnack()" id="max_snack_quantity"
-                                           name="max_snack_quantity" class="form-control" required>
-                                </div>
-                            </div>
 
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">{{translate('Max Lunch Quantity')}}</label>
-                                <div class="col-md-9">
-                                    <input type="number" placeholder="{{translate('Max Lunch Quantity')}}"
-                                           onchange="setMaxQuantityMeal()" id="max_meal_quantity"
-                                           name="max_meal_quantity" class="form-control" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-3 col-form-label">{{translate('Absence')}}</label>
-                                <div class="col-md-9">
-                                    <label class="sk-switch sk-switch-success mb-0">
-                                        <input type="checkbox" name="absence" onchange="showAbsenceDays()">
-                                        <span></span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-group row" id="absence_div" style="display: none;">
-                                <label class="col-md-3 col-form-label">{{translate('Absence Min Days Warning')}}</label>
-                                <div class="col-md-9">
-                                    <input type="number" placeholder="{{translate('Absence Min Days Warning')}}"
-                                           required id="absence_days" name="absence_days" class="form-control" disabled>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label
-                                    class="col-md-3 col-form-label">{{translate('Min Days before to Place Order')}}</label>
-                                <div class="col-md-9">
-                                    <input type="number" placeholder="{{translate('Min Days before to Place Order')}}"
-                                           id="preorder_days_num" name="preorder_days_num"
-                                           class="form-control">
-                                </div>
-                            </div>
 
                             <div class="form-group row">
                                 <label class="col-md-3 col-form-label">{{translate('Working Days')}}</label>
@@ -156,8 +145,65 @@
                                 <h5>{{translate('Holidays')}}</h5>
                             </div>
 
-                            <div id='calendar' class="mt-2 mb-2 mx-auto h-500px" style="height: 500px">
+                            <div id='calendar' class="mt-2 mb-3 mx-auto h-500px" style="height: 500px">
                                 <input type="hidden" name="holidays[]" id="holidays" multiple>
+                            </div>
+
+                            <div class="extra-days-loaded py-20px d-none">
+
+                                <h5>{{translate('Extra Days')}} <span class="fs-14 fw-400">({{translate('Extra Days can only be modified on Canteen Period Editing')}})</span></h5>
+                                <div class="extra-days-list fs-14">
+                                    <ul>
+                                    </ul>
+                                </div>
+
+                                <input type="hidden" name="extra_days"  id="extra_days" multiple>
+                            </div>
+
+                            <div class="form-group row ">
+                                <label class="col-md-3 col-form-label">{{translate('Max Snack Quantity')}}</label>
+                                <div class="col-md-9">
+                                    <input type="number" placeholder="{{translate('Max Snack Quantity')}}"
+                                           onchange="setMaxQuantitySnack()" id="max_snack_quantity"
+                                           name="max_snack_quantity" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">{{translate('Max Lunch Quantity')}}</label>
+                                <div class="col-md-9">
+                                    <input type="number" placeholder="{{translate('Max Lunch Quantity')}}"
+                                           onchange="setMaxQuantityMeal()" id="max_meal_quantity"
+                                           name="max_meal_quantity" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">{{translate('Absence')}}</label>
+                                <div class="col-md-9">
+                                    <label class="sk-switch sk-switch-success mb-0">
+                                        <input type="checkbox" name="absence" onchange="showAbsenceDays()">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group row" id="absence_div" style="display: none;">
+                                <label class="col-md-3 col-form-label">{{translate('Absence Min Days Warning')}}</label>
+                                <div class="col-md-9">
+                                    <input type="number" placeholder="{{translate('Absence Min Days Warning')}}"
+                                           required id="absence_days" name="absence_days" class="form-control" disabled>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label
+                                    class="col-md-3 col-form-label">{{translate('Min Days before to Place Order')}}</label>
+                                <div class="col-md-9">
+                                    <input type="number" placeholder="{{translate('Min Days before to Place Order')}}"
+                                           id="preorder_days_num" name="preorder_days_num"
+                                           class="form-control">
+                                </div>
                             </div>
 
                         @endif
@@ -169,7 +215,7 @@
                     </div>
 
                     <div class="form-group mb-2 mr-4 text-right">
-                        <a href="{{route('organisation_settings.index', $organisation->id)}}">
+                        <a href="{{route('catering.index', $organisation->id)}}">
                             <button type="button" class="btn btn-soft-danger">{{translate('Cancel')}}</button>
                         </a>
                         <button type="submit" class="btn btn-primary">{{translate('Save')}}</button>
@@ -197,7 +243,9 @@
 
         let pr_cards = 1;
 
-        let lan = '{{App::getLocale()}}'
+        let lan = '{{App::getLocale()}}';
+
+        let events = [];
 
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -247,21 +295,23 @@
 
         function reCreateCalendar() {
 
-            var start = moment($('#start_date').val());
-            var end = moment($('#end_date').val());
-
             my_start = $('#start_date').val();
             my_end = $('#end_date').val();
 
-            // console.log('mosnth start: ', moment(my_start).format("M"));
+            console.log('my_start: ',my_start, my_start.length);
+            console.log('my_end: ',my_end, my_end.length);
 
-            if (my_start >= my_end) {
+            if((my_start=='' || my_start.length<=0 ) && (my_end.length<=0 || my_end=='')){
+                console.log('not in: ');
+                return;
+            }
+
+            if ((my_start=='' || my_end=='') || my_start >= my_end) {
                 $('#date-warning').show();
             } else {
+
                 $('#date-warning').hide();
-
-            // if (end >= start) {
-
+                console.log('goes in: ');
 
                 var calendarEl = document.getElementById("calendar");
                 $('#calendar').children('div').remove();
@@ -374,13 +424,13 @@
                             }
                         },
                     },
+                    events: events
                 });
 
 
                 if(moment(my_start).format("M")==moment(my_end).format("M")){
                     calendar.changeView('dayGridMonth');
                 }
-
 
 
 
@@ -501,6 +551,197 @@
             reCreateCalendar();
         }
 
+
+        $(document).on('click', 'input[name=sync_periods]', function(){
+
+            if($(this).prop('checked')==true){
+                $('div.sync-period').removeClass('d-none');
+
+            }else{
+                $('div.sync-period').addClass('d-none');
+                $('select[name=periods_sync_select]').val('');
+                $('select[name=periods_sync_select]').selectpicker('refresh');
+
+                // SK.plugins.bootstrapSelect();
+                // recreate calendar from start
+                createCalendarFromStart();
+            }
+        });
+
+        function createCalendarFromStart(){
+            businessDays = [];
+            events = [];
+            holidays = [];
+            $('#extra_days').val(null);
+            document.getElementById('holidays').value = [];
+            $('input[name=start_date]').val('');
+            $('input[name=end_date]').val('');
+
+            $('input[name=start_date]').attr("data-date", '');
+            $('input[name=end_date]').attr("data-date", '');
+
+            $('input[name=monday]').prop('checked', false);
+            $('input[name=tuesday]').prop('checked', false);
+            $('input[name=wednesday]').prop('checked', false);
+            $('input[name=thursday]').prop('checked', false);
+            $('input[name=friday]').prop('checked', false);
+            $('input[name=saturday]').prop('checked', false);
+            $('input[name=sunday]').prop('checked', false);
+
+            $('.days-list ul').empty();
+            $('div.extra-days-loaded').addClass('d-none');
+
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: lan,
+                headerToolbar: {
+                    left: "customPrev",
+                    center: "title",
+                    right: "customNext",
+                },
+                initialView: "multiMonth", // Προβολή αρχικά σε Multiview με διάρκεια 2 μηνών
+                initialDate: moment().format("YYYY-MM-DD"),
+                multiMonthMaxColumns: 2,
+                duration: { months: 2 },
+                dateIncrement: { months: 1 },
+                selectable: false,
+                businessHours: {
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    daysOfWeek: businessDays, // Monday - Thursday
+
+                },
+                customButtons: {
+                    customPrev: {
+                        text: '{{translate("Prev Month")}}' ,
+                        click: function() {
+                            calendar.prev();
+                        }
+                    },
+                    customNext: {
+                        text:  '{{translate("Next Month")}}' ,
+                        click: function() {
+                            calendar.next();
+                        }
+                    },
+                },
+
+
+            });
+            calendar.render();
+        }
+
+        $(document).on('change', 'select[name=periods_sync_select]', function(){
+
+            //create calendar based on the selected period
+            //send ajax to get all details of this catering period
+
+            console.log('select val: ', $('select[name=periods_sync_select]').val());
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: "POST",
+                url: '{{route('canteen_settings.get_settings_details')}}',
+                data: {
+                    organisation_id: '{{$organisation->id}}',
+                    canteen_setting_id: $('select[name=periods_sync_select]').val(),
+                },
+                dataType: "JSON",
+                success: function (data) {
+                    console.log('period data: ', data);
+
+                    if(data.status == 1){
+                        //create calendar based on this data
+
+                        $('input[name=start_date]').val(data.start_date);
+                        $('input[name=end_date]').val(data.end_date);
+
+                        $('input[name=start_date]').attr("data-date",  moment(data.start_date, "YYYY-MM-DD").format($('input[name=start_date]').attr("data-date-format")));
+                        $('input[name=end_date]').attr("data-date",  moment(data.end_date, "YYYY-MM-DD").format($('input[name=end_date]').attr("data-date-format")));
+
+                        businessDays = [];
+                        events = [];
+
+                        $('input[name=monday]').prop('checked', false);
+                        $('input[name=tuesday]').prop('checked', false);
+                        $('input[name=wednesday]').prop('checked', false);
+                        $('input[name=thursday]').prop('checked', false);
+                        $('input[name=friday]').prop('checked', false);
+                        $('input[name=saturday]').prop('checked', false);
+                        $('input[name=sunday]').prop('checked', false);
+
+                        for(var i=0; i<(data.working_week_days).length; i++){
+                            if((data.working_week_days)[i] == "Mon"){
+                                $('input[name=monday]').prop('checked', true);
+                                businessDays.push(1);
+                            }else if((data.working_week_days)[i] == "Tue"){
+                                $('input[name=tuesday]').prop('checked', true);
+                                businessDays.push(2);
+                            } else if((data.working_week_days)[i] == "Wed"){
+                                $('input[name=wednesday]').prop('checked', true);
+                                businessDays.push(3);
+                            }
+                            else if((data.working_week_days)[i] == "Thu"){
+                                $('input[name=thursday]').prop('checked', true);
+                                businessDays.push(4);
+                            }
+                            else if((data.working_week_days)[i] == "Fri"){
+                                $('input[name=friday]').prop('checked', true);
+                                businessDays.push(5);
+                            }
+                            else if((data.working_week_days)[i] == "Sat"){
+                                $('input[name=saturday]').prop('checked', true);
+                                businessDays.push(6);
+                            }else if((data.working_week_days)[i] == "Sun"){
+                                $('input[name=sunday]').prop('checked', true);
+                                businessDays.push(7);
+                            }
+                        }
+
+                        document.getElementById('holidays').value = data.holidays;
+
+                        for(var i=0; i<(data.holidays).length; i++){
+
+                            var object =  {
+                                id: data.holidays[i],
+                                start: data.holidays[i],
+                                display: 'background',
+                                color: 'red'
+                            };
+
+                            events.push(object);
+
+                        }
+
+                        console.log(businessDays, events)
+                        var extra_days_arr = [];
+
+                        if((data.extra_days).length > 0){
+                            console.log(data.extra_days);
+                            for(var i=0; i<(data.extra_days).length; i++){
+                                $('.extra-days-list ul').append('<li>'+ moment(data.extra_days[i]).format('D/M/Y') +' </li>');
+                                extra_days_arr.push(data.extra_days[i]);
+                            }
+                            $('div.extra-days-loaded').removeClass('d-none');
+                        }
+
+                        $('#extra_days').val(extra_days_arr);
+
+                        reCreateCalendar();
+                        $('input[name=sync_periods_complete]').val('1');
+
+                    }else{
+
+                        createCalendarFromStart();
+                        $('input[name=sync_periods_complete]').val('0');
+
+                    }
+                },
+                error: function () {
+                }
+            });
+        });
 
 
 

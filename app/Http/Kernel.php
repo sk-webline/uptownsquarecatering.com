@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\isAppUser;
 use App\Http\Middleware\IsCashier;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsSeller;
@@ -62,7 +63,9 @@ class Kernel extends HttpKernel
         'admin' => IsAdmin::class,
         'seller' => IsSeller::class,
         'cashier' => Middleware\isCashier::class,
+        'canteen_cashier' => Middleware\IsCanteenCashier::class,
         'cashierSelectedLocation' => Middleware\cashierSelectedLocation::class,
+        'canteen_cashierSelectedLocation' => Middleware\CanteenCashierSelectedLocation::class,
         'user' => IsUser::class,
         'unbanned' => IsUnbanned::class,
         'checkout' => CheckoutMiddleware::class,
@@ -78,7 +81,9 @@ class Kernel extends HttpKernel
         'coming_soon' => \App\Http\Middleware\IpCheck::class,
         'no_cache' => \App\Http\Middleware\NoCacheMiddleware::class,
         'debug_ip_only' => \App\Http\Middleware\DebugIpOnly::class,
-        'enable_debugbar' => \App\Http\Middleware\EnableDebugBarOnSelectedIPs::class
+        'enable_debugbar' => \App\Http\Middleware\EnableDebugBarOnSelectedIPs::class,
+        'application_auth' => \Illuminate\Auth\Middleware\ApplicationAuthenticate::class,
+        'app_user' => isAppUser::class,
     ];
 
     /**

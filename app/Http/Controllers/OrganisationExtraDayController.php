@@ -86,7 +86,7 @@ class OrganisationExtraDayController extends Controller
 
         }
 
-        return redirect()->route('organisation_settings.index', ['organisation_id'=>$organisation_id] );
+        return redirect()->route('catering.index', ['organisation_id'=>$organisation_id] );
 
     }
 

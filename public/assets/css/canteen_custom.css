@@ -1,0 +1,97 @@
+.btn.add-credit-card{
+    padding: 0.05em 0.5em;
+    background-color: var(--soft-primary);
+}
+
+.assign-label.active{
+    border-width: 4px!important;
+    opatity: 100!important;
+}
+
+.form-group .input-info::after{
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    width: 40px;
+    /*height: 70px;*/
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    pointer-events: none;
+    background-size: 20px 30px;
+    background-image: url('/public/assets/img/icons/info-circle.svg');
+}
+
+.form-group.input-info::after{
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    width: 40px;
+    /*height: 70px;*/
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    pointer-events: none;
+    background-size: 20px 30px;
+    background-image: url('/public/assets/img/icons/info-circle.svg');
+}
+
+.form-group.input-info-w-50::after{
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 50%;
+    bottom: 2px;
+    width: 40px;
+    /*height: 70px;*/
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    pointer-events: none;
+    background-size: 20px 30px;
+    background-image: url('/public/assets/img/icons/info-circle.svg');
+}
+
+.h-500px{
+    height: 500px!important;
+}
+
+.h-550px{
+    height: 550px!important;
+}
+
+.h-600px{
+    height: 600px!important;
+}
+
+.h-650px{
+    height: 650px!important;
+}
+
+.h-700px{
+    height: 700px!important;
+}
+
+.h-750px{
+    height: 750px!important;
+}
+
+.h-800px{
+    height: 800px!important;
+}
+
+.hov-fill-primary:hover{
+    fill: var(--primary)!important;
+}
+
+.mb-4px{
+    margin-bottom: 4px!important;
+}
+
+.mb-3px{
+    margin-bottom: 3px!important;
+}

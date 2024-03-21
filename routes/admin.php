@@ -28,19 +28,81 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::post('/organisations/get_selected_organisations', 'OrganisationController@get_selected_organisations')->name('organisations.get_selected_organisations');
 
 //    Route::resource('organisation_settings', 'OrganisationSettingsController');
-    Route::get('/organisation_settings/{organisation_id}', 'OrganisationSettingsController@index')->name('organisation_settings.index');
-    Route::get('/organisation_settings/create/{organisation_id}', 'OrganisationSettingsController@create')->name('organisation_settings.create');
-    Route::get('/organisation_settings/edit/{id}', 'OrganisationSettingsController@edit')->name('organisation_settings.edit');
-    Route::post('/organisation_settings/store/{organisation_id}', 'OrganisationSettingsController@store')->name('organisation_settings.store');
-    Route::post('/organisation_settings/update/{id}', 'OrganisationSettingsController@update')->name('organisation_settings.update');
-    Route::get('/organisation_settings/delete/{id}', 'OrganisationSettingsController@destroy')->name('organisation_settings.destroy');
 
-    Route::get('/organisation_locations/{organisation_id}', 'OrganisationLocationController@index')->name('organisation_locations.index');
-    Route::get('/organisation_locations/create/{organisation_id}', 'OrganisationLocationController@create')->name('organisation_locations.create');
-    Route::get('/organisation_locations/edit/{id}', 'OrganisationLocationController@edit')->name('organisation_locations.edit');
-    Route::post('/organisation_locations/store/{organisation_id}', 'OrganisationLocationController@store')->name('organisation_locations.store');
-    Route::post('/organisation_locations/update/{id}', 'OrganisationLocationController@update')->name('organisation_locations.update');
-    Route::get('/organisation_locations/delete/{id}', 'OrganisationLocationController@destroy')->name('organisation_locations.destroy');
+
+    Route::group(['prefix' => 'catering'], function() {
+        Route::get('/{organisation_id}', 'CateringController@index')->name('catering.index');
+
+//        Route::get('/organisation_settings/{organisation_id}', 'OrganisationSettingsController@index')->name('organisation_settings.index');
+        Route::get('/organisation_settings/create/{organisation_id}', 'OrganisationSettingsController@create')->name('organisation_settings.create');
+        Route::get('/organisation_settings/edit/{id}', 'OrganisationSettingsController@edit')->name('organisation_settings.edit');
+        Route::post('/organisation_settings/store/{organisation_id}', 'OrganisationSettingsController@store')->name('organisation_settings.store');
+        Route::post('/organisation_settings/update/{id}', 'OrganisationSettingsController@update')->name('organisation_settings.update');
+        Route::get('/organisation_settings/delete/{id}', 'OrganisationSettingsController@destroy')->name('organisation_settings.destroy');
+
+        Route::post('/organisation_settings/get_settings_details', 'OrganisationSettingsController@get_settings_details')->name('organisation_settings.get_settings_details');
+
+
+
+//        Route::get('/organisation_locations/{organisation_id}', 'OrganisationLocationController@index')->name('organisation_locations.index');
+        Route::get('/organisation_locations/create/{organisation_id}', 'OrganisationLocationController@create')->name('organisation_locations.create');
+        Route::get('/organisation_locations/edit/{id}', 'OrganisationLocationController@edit')->name('organisation_locations.edit');
+        Route::post('/organisation_locations/store/{organisation_id}', 'OrganisationLocationController@store')->name('organisation_locations.store');
+        Route::post('/organisation_locations/update/{id}', 'OrganisationLocationController@update')->name('organisation_locations.update');
+        Route::get('/organisation_locations/delete/{id}', 'OrganisationLocationController@destroy')->name('organisation_locations.destroy');
+    });
+
+    Route::group(['prefix' => 'canteen'], function() {
+
+        Route::get('/{organisation_id}', 'CanteenController@index')->name('canteen.index');
+
+        Route::get('/canteen_settings/create/{organisation_id}', 'CanteenSettingController@create')->name('canteen_settings.create');
+        Route::get('/canteen_settings/edit/{id}', 'CanteenSettingController@edit')->name('canteen_settings.edit');
+        Route::post('/canteen_settings/store/{organisation_id}', 'CanteenSettingController@store')->name('canteen_settings.store');
+        Route::post('/canteen_settings/update/{id}', 'CanteenSettingController@update')->name('canteen_settings.update');
+        Route::get('/canteen_settings/delete/{id}', 'CanteenSettingController@destroy')->name('canteen_settings.destroy');
+
+        Route::post('/canteen_settings/get_settings_details', 'CanteenSettingController@get_settings_details')->name('canteen_settings.get_settings_details');
+
+
+        Route::post('/extra_days/update/{id}', 'CanteenExtraDayController@update')->name('canteen_settings.extra_days.update');
+
+        Route::get('/canteen_locations/create/{organisation_id}', 'CanteenLocationController@create')->name('canteen_locations.create');
+        Route::get('/canteen_locations/edit/{id}', 'CanteenLocationController@edit')->name('canteen_locations.edit');
+        Route::post('/canteen_locations/store/{organisation_id}', 'CanteenLocationController@store')->name('canteen_locations.store');
+        Route::post('/canteen_locations/update/{id}', 'CanteenLocationController@update')->name('canteen_locations.update');
+        Route::get('/canteen_locations/delete/{id}', 'CanteenLocationController@destroy')->name('canteen_locations.destroy');
+
+        Route::get('/canteen_settings/{canteen_setting_id}/menu', 'CanteenMenuController@index')->name('canteen_menu.index');
+//        Route::get('/canteen_settings/{canteen_setting_id}/menu/create', 'CanteenMenuController@create')->name('canteen_menu.create');
+//        Route::post('/canteen_settings/{canteen_setting_id}/menu/store', 'CanteenMenuController@store')->name('canteen_menu.store');
+        Route::get('/canteen_settings/{canteen_setting_id}/menu/edit', 'CanteenMenuController@edit')->name('canteen_menu.edit');
+//        Route::post('/canteen_settings/{canteen_setting_id}/menu/update', 'CanteenMenuController@update')->name('canteen_menu.update');
+        Route::post('/canteen_settings/canteen_setting_id/menu/ajax_change', 'CanteenMenuController@change_canteen_menu_ajax')->name('canteen_menu.ajax_change');
+        Route::post('/canteen_settings/{canteen_setting_id}/menu/update_custom_price', 'CanteenMenuController@update_custom_price')->name('canteen_menu.update_custom_price');
+        Route::post('/canteen_settings/canteen_setting_id/menu/ajax_change_all', 'CanteenMenuController@change_canteen_menu_ajax_all')->name('canteen_menu.ajax_change_all');
+        Route::post('/canteen_settings/canteen_setting_id/menu/ajax_change_custom_price', 'CanteenMenuController@ajax_change_custom_price')->name('canteen_menu.ajax_change_custom_price');
+        Route::post('/canteen_settings/canteen_setting_id/menu/ajax_delete_custom_price', 'CanteenMenuController@ajax_delete_custom_price')->name('canteen_menu.ajax_delete_custom_price');
+        Route::post('/canteen_settings/canteen_setting_id/menu/select_all_products_of_page', 'CanteenMenuController@select_all_products_of_page')->name('canteen_menu.select_all_products_of_page');
+        Route::post('/canteen_settings/canteen_setting_id/menu/select_all_products_of_filters', 'CanteenMenuController@select_all_products_of_filters')->name('canteen_menu.select_all_products_of_filters');
+
+
+
+    });
+
+    Route::get('/canteen_categories', 'CanteenProductCategoryController@index')->name('canteen_product_categories.index');
+    Route::get('/canteen_categories/create', 'CanteenProductCategoryController@create')->name('canteen_product_categories.create');
+    Route::post('/canteen_categories/store', 'CanteenProductCategoryController@store')->name('canteen_product_categories.store');
+    Route::get('/canteen_categories/edit/{id}', 'CanteenProductCategoryController@edit')->name('canteen_product_categories.edit');
+    Route::post('/canteen_categories/update/{id}', 'CanteenProductCategoryController@update')->name('canteen_product_categories.update');
+    Route::get('/canteen_categories/destroy/{id}', 'CanteenProductCategoryController@destroy')->name('canteen_product_categories.destroy');
+
+    Route::get('/canteen_products', 'CanteenProductController@index')->name('canteen_products.index');
+    Route::get('/canteen_products/create', 'CanteenProductController@create')->name('canteen_products.create');
+    Route::post('/canteen_products/store', 'CanteenProductController@store')->name('canteen_products.store');
+    Route::get('/canteen_products/edit/{id}', 'CanteenProductController@edit')->name('canteen_products.edit');
+    Route::post('/canteen_products/update/{id}', 'CanteenProductController@update')->name('canteen_products.update');
+    Route::get('/canteen_products/destroy/{id}', 'CanteenProductController@destroy')->name('canteen_products.destroy');
 
     Route::get('/organisation_cards/{organisation_id}', 'CardController@index')->name('organisation_cards.index');
     Route::get('/organisation_cards/sync/{organisation_id}', 'CardController@sync')->name('organisation_cards.sync');
@@ -75,6 +137,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 
     Route::get('/meal_reports', 'MealReportController@index')->name('meal_reports.index');
     Route::get('/meal_report/show', 'MealReportController@show')->name('meal_reports.show');
+
+    Route::get('/canteen_reports', 'CanteenReportController@index')->name('canteen_reports.index');
+    Route::get('/canteen_report/show', 'CanteenReportController@show')->name('canteen_reports.show');
+    Route::post('/canteen_report/export', 'CanteenReportController@excel_export')->name('canteen_reports.export');
+
+    Route::get('/canteen_meal_reports', 'CanteenMealReportController@index')->name('canteen_meal_reports.index');
+    Route::get('/canteen_meal_report/show', 'CanteenMealReportController@show')->name('canteen_meal_reports.show');
+    Route::post('/canteen_meal_report/export', 'CanteenMealReportController@excel_export')->name('canteen_meal_reports.export');
+
 
 
     Route::resource('categories', 'CategoryController');
@@ -137,9 +208,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('/customers/edit/{id}', 'CustomerController@edit')->name('customers.edit');
     Route::get('/customers/view_catering_plans/{id}', 'CustomerController@view_catering_plans')->name('customers.view_catering_plans');
 
+//    Route::resource('canteen_customers', 'CanteenCustomerController');
+    Route::get('/canteen_customers', 'CanteenCustomerController@index')->name('canteen_customers.index');
+    Route::get('/canteen_customers/destroy/{id}', 'CanteenCustomerController@destroy')->name('canteen_customers.destroy');
+    Route::get('/canteen_customers/login/{id}', 'CanteenCustomerController@login')->name('canteen_customers.login');
+
     Route::resource('cashiers', 'CashierController');
     Route::get('/cashiers/destroy/{id}', 'CashierController@destroy')->name('cashiers.destroy');
     Route::post('/cashiers/update/{id}', 'CashierController@update')->name('cashiers.update');
+
+    Route::resource('canteen_cashiers', 'CanteenCashierController');
+    Route::get('/canteen_cashiers/destroy/{id}', 'CanteenCashierController@destroy')->name('canteen_cashiers.destroy');
+    Route::post('/canteen_cashiers/update/{id}', 'CanteenCashierController@update')->name('canteen_cashiers.update');
+
 
     Route::get('/newsletter', 'NewsletterController@index')->name('newsletters.index');
     Route::post('/newsletter/send', 'NewsletterController@send')->name('newsletters.send');
@@ -243,6 +324,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('/all_orders', 'OrderController@all_orders')->name('all_orders.index')->middleware('no_cache');
     Route::get('/all_orders/{id}/show', 'OrderController@all_orders_show')->name('all_orders.show');
     Route::post('/update_tracking_code', 'OrderController@update_tracking_code')->name('all_orders.update_tracking_code');
+
+    Route::get('/canteen_orders', 'AppOrderController@all_orders')->name('canteen_orders.index')->middleware('no_cache');
+    Route::get('/canteen_orders/{id}/show', 'AppOrderController@show')->name('canteen_orders.show');
+    Route::get('/canteen_orders/{id}/detroty', 'AppOrderController@destroy')->name('canteen_orders.destroy');
+
+    Route::get('/canteen_refunds', 'AppOrderController@all_refunds')->name('canteen_orders.refunds')->middleware('no_cache');
 
     // Inhouse Orders
     Route::get('/inhouse-orders', 'OrderController@admin_orders')->name('inhouse_orders.index');

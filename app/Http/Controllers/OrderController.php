@@ -32,6 +32,7 @@ use App\Mail\InvoiceEmailManager;
 use CoreComponentRepository;
 use App\Models\Gateways\Viva as VivaWallet;
 
+
 class OrderController extends Controller
 {
     /**
@@ -87,7 +88,6 @@ class OrderController extends Controller
         $org_settings = [];
         $catering_plans = [];
 
-
         if ($request->has('organisation')) {
             $selected_organisations = $request->organisation;
         }
@@ -116,6 +116,7 @@ class OrderController extends Controller
                 }
             }
         }
+
 
         if ($request->has('catering_plan')) {
 
@@ -634,6 +635,7 @@ class OrderController extends Controller
 
     public function storeForVivaWallet($viva_wallet_log_id, $transactionStatusId)
     {
+
         sleep(1);
         $viva_wallet_log = VivaWallet::where('id', $viva_wallet_log_id)->where('run_script', 0)->where('start_process', '=', 0)->orderBy('created_at', 'desc')->first();
 
@@ -654,7 +656,6 @@ class OrderController extends Controller
             $order->guest_id = $viva_wallet_log->guest_id;
         }
 
-//        $order->seller_id = 9;
         $order->shipping_address = $viva_wallet_log->customer_details;
 
         $order->vat_percentage = $viva_wallet_log->vat_percentage;
@@ -663,10 +664,6 @@ class OrderController extends Controller
         $order->payment_type = "viva_wallet";
         $order->payment_status = ($transactionStatusId == 'F' ? "paid" : ($transactionStatusId == 'A' ? "pending" : 'unpaid'));
         $order->delivery_viewed = '0';
-//        $order->shipping_cost = $shipping_method->amount;
-//        $order->shipping_vat = $shipping_method->vat;
-//        $order->shipping_method = $shipping_method->method;
-//        $order->pickup_point = $shipping_method->pickup_point;
         $order->payment_status_viewed = '0';
         $order->code = $viva_wallet_log->OrderCode;
         $order->date = strtotime('now');

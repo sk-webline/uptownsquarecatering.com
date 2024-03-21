@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organisation;
+use App\Models\OrganisationCanteenCashier;
 use App\Models\OrganisationCashier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class CashierController extends Controller
 {
@@ -57,7 +59,7 @@ class CashierController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
-            'username' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed'
         ]);
     }
@@ -139,6 +141,11 @@ class CashierController extends Controller
     {
 
         $cashier = User::findorfail($id);
+
+        if($cashier->user_type != 'cashier'){
+            return redirect()->route('cashiers.index');
+        }
+
         $organisations = Organisation::select('id', 'name')->get();
         $my_organisations = OrganisationCashier::where('user_id', $id)->select('organisation_id')->get();
 
@@ -164,6 +171,12 @@ class CashierController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $cashier = User::findorfail($id);
+
+        if($cashier->user_type != 'cashier'){
+            return redirect()->route('cashiers.index');
+        }
+
 
         if( strlen($request->password)>0){
             $this->validator($request->all())->validate();
@@ -173,13 +186,15 @@ class CashierController extends Controller
             $this->validate($request, [
                 'name' => 'required|string|max:255',
                 'surname' => 'required|string|max:255',
-                'username' => 'required|string|max:255',
+                'username' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('users')->ignore($id), // Assuming you are using the authenticated user's ID
+                ],
             ]);
 
         }
-
-
-        $cashier = User::findorfail($id);
 
         $cashier->name = $request->name . ' ' . $request->surname;
 
@@ -243,7 +258,19 @@ class CashierController extends Controller
 
         $cashier = User::findorfail($id);
 
+        if($cashier->user_type != 'cashier'){
+            flash(translate('Sorry! Something went wrong!'))->error();
+            return redirect()->route('cashiers.index');
+        }
+
         if ($cashier->delete()) {
+
+            $temp = OrganisationCashier::where('user_id', $id)->get();
+
+            foreach ($temp as $t){
+                $t->delete();
+            }
+
             flash(translate('Cashier has been deleted successfully'))->success();
         } else {
             flash(translate('Sorry! Something went wrong!'))->error();

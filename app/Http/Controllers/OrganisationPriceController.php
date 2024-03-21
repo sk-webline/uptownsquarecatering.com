@@ -120,7 +120,7 @@ class OrganisationPriceController extends Controller
 
         flash(translate('Organisation Prices has been inserted successfully'))->success();
 
-        return redirect()->route('organisation_settings.index', $organisation_id);
+        return redirect()->route('catering.index', $organisation_id);
 
     }
 

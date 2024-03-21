@@ -18,7 +18,7 @@ return [
 
     'contact_email' => env('CONTACT_EMAIL'),
 
-    'order_email' => env('ORDER_EMAIL'),
+    'order_email' => explode(',',env('ORDER_EMAIL')),
 
     'email_report_import_data' => explode(',',env('EMAIL_REPORT_IMPORT_DATA')),
 

@@ -24,7 +24,6 @@
     $preorder_days = $organisation_setting->preorder_days_num;
 
 
-
     ?>
 
 
@@ -37,10 +36,12 @@
                     <div class="card-header">
                         <h5 class="mb-0 h6">
 
-                            <a href="{{route('organisations.index')}}" class="text-black" >{{translate('Organisations')}} </a> > {{$organisation->name}} >
-                            <a href="{{route('organisation_settings.index', $organisation->id)}}" class="text-black" >{{translate('Periods')}} </a> >
+                            <a href="{{route('organisations.index')}}"
+                               class="text-black">{{translate('Organisations')}} </a> > {{$organisation->name}} >
+                            <a href="{{route('catering.index', $organisation->id)}}"
+                               class="text-black">{{translate('Periods')}} </a> >
                             {{date("d/m/Y", strtotime($organisation_setting->date_from))}}
-                                - {{date("d/m/Y", strtotime($organisation_setting->date_to))}}
+                            - {{date("d/m/Y", strtotime($organisation_setting->date_to))}}
                             > {{translate('Add New Catering Plan')}}</h5>
                     </div>
 
@@ -62,7 +63,7 @@
                             <label class="col-md-3 col-form-label">{{translate('Name')}}</label>
                             <div class="col-md-9">
                                 <input type="text" value="{{ old('name') }}" id="name"
-                                       name="name" class="form-control" required >
+                                       name="name" class="form-control" required>
                             </div>
                         </div>
 
@@ -88,7 +89,8 @@
                             <div class="col-md-9">
                                 <input type="date" id="from_date" name="from_date"
                                        class="form-control dd_mm_formatted" data-date-format="DD/MM/YYYY"
-                                      @if(old('from_date')!=null) data-date="{{Carbon::create(old('from_date'))->format('d/m/Y')}}" @endif  value="{{old('from_date')}}"
+                                       @if(old('from_date')!=null) data-date="{{Carbon::create(old('from_date'))->format('d/m/Y')}}"
+                                       @endif  value="{{old('from_date')}}"
                                        min="{{$start_date_organisation_setting}}"
                                        max="{{$end_date_organisation_setting}}"
                                        onchange="calculate_days()" required>
@@ -100,7 +102,8 @@
                             <div class="col-md-9">
                                 <input type="date" id="to_date" name="to_date"
                                        class="form-control dd_mm_formatted" data-date-format="DD/MM/YYYY"
-                                       @if(old('to_date')!=null) data-date="{{Carbon::create(old('to_date'))->format('d/m/Y')}}" @endif
+                                       @if(old('to_date')!=null) data-date="{{Carbon::create(old('to_date'))->format('d/m/Y')}}"
+                                       @endif
                                        onchange="calculate_days()" value="{{old('to_date')}}"
                                        min="{{$start_date_organisation_setting}}"
                                        max="{{$end_date_organisation_setting}}"
@@ -113,7 +116,8 @@
                             <div class="col-md-9">
                                 <input type="date" id="publish_date" name="publish_date"
                                        class="form-control dd_mm_formatted" data-date-format="DD/MM/YYYY"
-                                       @if(old('publish_date')!=null) data-date="{{Carbon::create(old('publish_date'))->format('d/m/Y')}}" @endif
+                                       @if(old('publish_date')!=null) data-date="{{Carbon::create(old('publish_date'))->format('d/m/Y')}}"
+                                       @endif
                                        value="{{old('publish_date')}}"
                                        min="{{ Carbon::now()->format('Y-m-d') }}"
                                        max="{{$end_date_organisation_setting}}"
@@ -124,7 +128,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">{{translate('Number of Snacks')}}</label>
                             <div class="col-md-9">
-                                <input type="number" id="snack_input" name="snack_num" class="form-control" min="0" value="{{old('snack_num')}}"
+                                <input type="number" id="snack_input" name="snack_num" class="form-control" min="0"
+                                       value="{{old('snack_num')}}"
                                        placeholder="{{translate('max.')}} {{$organisation_setting->max_snack_quantity}}"
                                        required>
                             </div>
@@ -133,7 +138,8 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">{{translate('Number of Lunches')}}</label>
                             <div class="col-md-9">
-                                <input type="number" id="meal_input" name="meal_num" class="form-control" min="0" value="{{old('meal_num')}}"
+                                <input type="number" id="meal_input" name="meal_num" class="form-control" min="0"
+                                       value="{{old('meal_num')}}"
                                        placeholder="{{translate('max.')}} {{$organisation_setting->max_meal_quantity}}"
                                        required>
                             </div>
@@ -141,27 +147,19 @@
 
 
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label">{{translate('Price')}} {{translate('Includes')}} {{$vat}}% {{(translate('vat'))}}</label>
+                            <label
+                                class="col-md-3 col-form-label">{{translate('Price')}} {{translate('Includes')}} {{$vat}}
+                                % {{(translate('vat'))}}</label>
                             <div class="col-md-3">
 
-
-{{--                                <input type="number" id="price" name="price" class="form-control" min="1" step="0.01"--}}
-{{--                                       required value="{{old('price')}}">--}}
-
-
-                                        <div class="input-group" >
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text bg-soft-secondary font-weight-medium px-2">€</div>
-                                            </div>
-                                            <input type="number" id="price" name="price" class="form-control" min="0.01" step="0.01"
-                                                   required value="{{old('price')}}">
-                                        </div>
-
-
-
-
-
-
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium px-2">€</div>
+                                    </div>
+                                    <input type="number" id="price" name="price" class="form-control" min="0.01"
+                                           step="0.01"
+                                           required value="{{old('price')}}">
+                                </div>
 
                                 <div id="recommended_price" style="display: none">
                                     <span class="lh-2">{{translate('Recommended Price')}}: </span>
@@ -172,7 +170,8 @@
                                     </div>
 
                                     <div id="date-error" class="d-none">
-                                        <span class="lh-2 text-red">{{translate('End Date should be greater than Start Date')}} </span>
+                                        <span
+                                            class="lh-2 text-red">{{translate('End Date should be greater than Start Date')}} </span>
 
                                     </div>
 
@@ -263,7 +262,6 @@
             }
 
 
-
             console.log(all_prices);
             console.log(max_days);
 
@@ -319,7 +317,7 @@
 
             // console.log('max_date: ', max_date.format('YYYY-MM-DD') );
 
-            $("#publish_date").attr("max",max_date.format('YYYY-MM-DD'));
+            $("#publish_date").attr("max", max_date.format('YYYY-MM-DD'));
 
 
         });
@@ -333,8 +331,7 @@
             // console.log('ckeck:', price_check);
 
 
-
-            var snack_price =0, meal_price=0;
+            var snack_price = 0, meal_price = 0;
 
             if (total_days != 0) {
 
@@ -352,11 +349,11 @@
                             if (all_prices[i].end_range == max_days && all_prices[i].type == 'snack') {
                                 // console.log('1st');
                                 if ($('#snack_input').val() >= max_snacks) {
-                                    snack_price =  all_prices[i].price * total_days;
+                                    snack_price = all_prices[i].price * total_days;
 
                                 } else {
                                     if (all_prices[i].quantity == $('#snack_input').val()) {
-                                        snack_price =  all_prices[i].price * total_days;
+                                        snack_price = all_prices[i].price * total_days;
                                     }
                                 }
                             }
@@ -367,11 +364,11 @@
                             if (all_prices[i].start_range <= total_days && all_prices[i].end_range >= total_days && all_prices[i].type == 'snack') {
                                 // console.log('1st');
                                 if ($('#snack_input').val() >= max_snacks) {
-                                    snack_price =  all_prices[i].price * total_days;
+                                    snack_price = all_prices[i].price * total_days;
 
                                 } else {
                                     if (all_prices[i].quantity == $('#snack_input').val()) {
-                                        snack_price =  all_prices[i].price * total_days;
+                                        snack_price = all_prices[i].price * total_days;
                                     }
                                 }
                             }
@@ -387,7 +384,7 @@
                             if (all_prices[i].end_range == max_days && all_prices[i].type == 'meal') {
 
                                 if ($('#meal_input').val() >= max_meals) {
-                                    meal_price =  all_prices[i].price * total_days;
+                                    meal_price = all_prices[i].price * total_days;
 
                                 } else {
                                     if (all_prices[i].quantity == $('#meal_input').val()) {
@@ -401,17 +398,17 @@
                         for (var i = 0; i < all_prices.length; i++) {
                             if (all_prices[i].start_range <= total_days && all_prices[i].end_range >= total_days && all_prices[i].type == 'meal') {
                                 if ($('#meal_input').val() >= max_meals) {
-                                    meal_price =all_prices[i].price * total_days;
+                                    meal_price = all_prices[i].price * total_days;
                                 } else {
                                     if (all_prices[i].quantity == $('#meal_input').val()) {
-                                        meal_price =  all_prices[i].price * total_days;
+                                        meal_price = all_prices[i].price * total_days;
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }else{
+            } else {
                 $('#total_days_div').addClass('d-none');
                 $('#date-error').removeClass('d-none');
             }
@@ -423,7 +420,6 @@
             $('#total_cost').html(price_output);
             $('#total_days_calculated').html(total_days);
             $('#recommended_price').show();
-
 
 
         }
@@ -484,7 +480,6 @@
                 }
 
             }
-
 
 
         }

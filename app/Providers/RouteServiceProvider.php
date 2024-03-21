@@ -64,6 +64,12 @@ class RouteServiceProvider extends ServiceProvider
         //$this->mapInstallRoutes();
 
         //$this->mapUpdateRoutes();
+
+        $this->mapApplicationRoutes();
+
+        $this->mapCanteenCashierRoutes();
+
+
     }
 
     /**
@@ -276,5 +282,21 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapApplicationRoutes()
+    {
+        Route::prefix('application')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/application.php'));
+    }
+
+    protected function mapCanteenCashierRoutes()
+    {
+        Route::prefix('canteen_cashier')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/canteen_cashier.php'));
     }
 }

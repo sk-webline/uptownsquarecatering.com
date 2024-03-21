@@ -355,18 +355,33 @@ $('.remove-all-spaces').on("change keyup keypress", function() {
     var input = $(this).val();
 
     var new_string = input.replace(/\s+/g, '');
-    // var new_string='';
-    //
-    // for (var i = 0; i < input.length; i++) {
-    //     if(input.substring(i, i+1)===' '){
-    //
-    //     }else{
-    //         new_string = new_string + input.substring(i, i+1)
-    //     }
-    // }
 
     $(this).val(new_string);
 
 });
+
+
+/*Notification*/
+$(document).on('click', '[data-notification]', function (){
+    $('#' + $(this).data('notification')).addClass('active');
+});
+
+$(document).mouseup(function(e) {
+    if(!$('.notification-pop-box').is(e.target) && $('.notification-pop-box').has(e.target).length === 0) {
+        $('.notification-pop').removeClass('active');
+    }
+});
+
+// $('.dd_mm_formatted').on("change keyup keypress", function() {
+//     if (this.value.length > 0) {
+//         this.setAttribute(
+//             "data-date",
+//             moment(this.value, "YYYY-MM-DD").format(this.getAttribute("data-date-format"))
+//         );
+//     }else{
+//         this.setAttribute("data-date", "");
+//     }
+//
+// }).trigger("change");
 
 

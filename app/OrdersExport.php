@@ -50,9 +50,6 @@ class OrdersExport extends DefaultValueBinder implements FromCollection, WithHea
                 $email = json_decode($order->shipping_address)->email;
             }
 
-//            $organisation = OrganisationSetting::find($order->organisation_settings_id)->organisation;
-
-//            if ($_SERVER['REMOTE_ADDR'] == '82.102.76.201') {
 
             $orderDetails = OrderDetail::where('order_id', $order->id)->get();
             $plans = '';

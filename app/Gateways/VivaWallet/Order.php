@@ -63,16 +63,17 @@ class Order
      * @param  array  $guzzleOptions  Additional parameters for the Guzzle client
      * @return \stdClass
      */
-    /*public function get($orderCode, array $guzzleOptions = [])
+    public function get($orderCode, array $guzzleOptions = [])
     {
+
         return $this->client->get(
-            $this->client->getUrl()->withPath("/api/orders/$orderCode"),
+            $this->client->getUrl()->withPath("/api/orders/" . $orderCode),
             array_merge_recursive(
-                $this->client->authenticateWithBearerToken(),
+                $this->client->authenticateWithBasicToken(),
                 $guzzleOptions
             )
         );
-    }*/
+    }
 
     /**
      * Get the checkout URL for an order.

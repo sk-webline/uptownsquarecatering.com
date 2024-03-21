@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ApiClient\ApiClient;
+use App\Models\CanteenLocation;
 use App\Models\OrganisationLocation;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ServerException;
@@ -67,6 +68,10 @@ class OrganisationController extends Controller
     public function create()
     {
 
+        if($_SERVER['REMOTE_ADDR'] != '82.102.76.201'){
+            return redirect()->route('organisations.index');
+        }
+
         return view('backend.organisation.create');
     }
 
@@ -78,9 +83,26 @@ class OrganisationController extends Controller
      */
     public function store(Request $request)
     {
+
+        if($_SERVER['REMOTE_ADDR'] != '82.102.76.201'){
+            return redirect()->route('organisations.index');
+        }
+
         $organisation = new Organisation();
         $organisation->name = $request->name;
-        $organisation->catering = 1;
+//        $organisation->catering = 1;
+
+        if ($request->has('catering')) {
+            $organisation->catering = 1;
+        } else {
+            $organisation->catering = 0;
+        }
+
+        if ($request->has('canteen')) {
+            $organisation->canteen = 1;
+        } else {
+            $organisation->canteen = 0;
+        }
 
         if ($request->has('top_up')) {
             $organisation->top_up = 1;
@@ -110,7 +132,7 @@ class OrganisationController extends Controller
 
         }
 
-        return redirect()->route('organisation_settings.index', ['organisation_id' => $organisation->id]);
+        return redirect()->route('catering.index', ['organisation_id' => $organisation->id]);
 
 
     }
@@ -169,6 +191,12 @@ class OrganisationController extends Controller
             $organisation->custom_packets = 1;
         } else if ($organisation->custom_packets != 1 && !$request->has('custom_packets')) {
             $organisation->custom_packets = 0;
+        }
+
+        if ($request->has('canteen')) {
+            $organisation->canteen = 1;
+        } else {
+            $organisation->canteen = 0;
         }
 
         if ($request->has('top_up')) {
@@ -312,6 +340,8 @@ class OrganisationController extends Controller
 
     }
 
+
+
     public function get_selected_organisations(Request $request)
     {
 
@@ -325,35 +355,14 @@ class OrganisationController extends Controller
         return array('view' => view('backend.sales.all_orders.organisation_catering_plans_select_box', compact('organisations'))->render());
 
 
-//        return $request->organisation_ids;
-//        $response = null;
-//
-////        return $response[] = array('organisation_id' => 5, "organisation_name" => 5,  'plans' => json_encode(array()));
-//        foreach($organisations as $organisation){
-////
-//          $current_settings = $organisation->currentSettings();
-////
-//            if($current_settings!=null){
-////
-//////                foreach($current_settings->catering_plans as $catering_plan){
-//////                    $response[] = array('organisation_id' => $organisation->id, "organisation_name" => $organisation->name, 'catering_plan_id' => $catering_plan->id,
-//////                        'catering_plan_name' => $catering_plan->name);
-//////                }
-////
-//                foreach ($current_settings->catering_plans as $catering_plan) {
-//                    $arr[] = array('catering_plan_id' => $catering_plan->id, 'catering_plan_name' => $catering_plan->name);
-//                }
-//
-////                return $current_settings->catering_plans;
-//
-//                $response[] = array('organisation_id' => $organisation->id, "organisation_name" => $organisation->name,  'plans' => json_encode($arr));
-//            }
-////
-//        }
-////
-//        return $response;
+    }
 
-//        return $organisations;
+    public function get_canteen_locations(Request $request)
+    {
+
+        $locations = CanteenLocation::where('organisation_id', $request->organisation_id)->get();
+
+        return $locations;
 
     }
 

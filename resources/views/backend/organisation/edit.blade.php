@@ -21,6 +21,16 @@
                         </div>
 
                         <div class="form-group row">
+                            <label class="col-md-3 col-form-label">{{translate('Canteen')}}</label>
+                            <div class="col-md-9">
+                                <label class="sk-switch sk-switch-success mb-0">
+                                     <input type="checkbox" name="canteen" @if($organisation->canteen==1) checked @endif>
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-md-3 col-form-label">{{translate('Catering')}}</label>
                             <div class="col-md-9">
                                 <label class="sk-switch sk-switch-success mb-0">

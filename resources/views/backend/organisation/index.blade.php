@@ -57,6 +57,18 @@
 
     @endif
 
+    @if($_SERVER['REMOTE_ADDR'] == '82.102.76.201')
+    <div class="sk-titlebar text-left mt-2 mb-3">
+        <div class="row align-items-center justify-content-end">
+
+            <div class="col-md-6 text-md-right">
+                <a href="{{route('organisations.create')}}" class="btn btn-primary">
+                    <span>{{translate('Add New Organisation')}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    @endif
 
     <div class="card">
         <div class="card-header d-block d-md-flex">
@@ -92,14 +104,30 @@
                         <td>{{ $organisation->name }}</td>
                         <td>{{ $cards }}</td>
                         <td class="text-right">
-                            <a class="btn btn-soft-primary " href="{{route('organisation_locations.index', $organisation->id)}}" title="{{ translate('Locations') }}">
-                                Locations
-                            </a>
-                            <a class="btn btn-soft-primary " href="{{route('organisation_settings.index', $organisation->id)}}" title="{{ translate('Periods') }}">
-                               Periods
-                            </a>
+
+                            @if($organisation->canteen == 1)
+                                <a class="btn btn-soft-primary "href="{{route('canteen.index', $organisation->id)}}" title="{{ translate('Canteen') }}">
+                                    {{ translate('Canteen') }}
+                                </a>
+                            @endif
+
+                            @if($organisation->canteen == 1)
+                                 <a class="btn btn-soft-primary" href="{{route('catering.index', $organisation->id)}}" title="{{ translate('Catering') }}">
+                                     {{ translate('Catering') }}
+                                 </a>
+                            @endif
+
+
+
+
+{{--                            <a class="btn btn-soft-primary " href="{{route('catering.index', $organisation->id)}}" title="{{ translate('Locations') }}">--}}
+{{--                                {{ translate('Locations') }}--}}
+{{--                            </a>--}}
+{{--                            <a class="btn btn-soft-primary " href="{{route('catering.index', $organisation->id)}}" title="{{ translate('Periods') }}">--}}
+{{--                                {{ translate('Periods') }}--}}
+{{--                            </a>--}}
                             <a class="btn btn-soft-primary " href="{{route('organisation_cards.index', $organisation->id)}}" title="{{ translate('Cards') }}">
-                                Cards
+                                {{ translate('Cards') }}
                             </a>
                             <a class="btn btn-soft-secondary " href="{{route('organisations.edit', $organisation->id)}}" title="{{ translate('Edit') }}">
                                 {{ translate('Edit') }}

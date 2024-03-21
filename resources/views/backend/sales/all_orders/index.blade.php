@@ -55,7 +55,7 @@
                     </div>
 
 
-                    <div class="col-auto ">
+                    <div class="col-auto">
                         <div class="form-group mb-0 ">
                             <label class="h6"> {{translate('Catering Plan')}} </label>
                             <select class="sk-selectpicker w-450px w-lg-450px d-block" id="catering_plans_select"
@@ -78,7 +78,7 @@
                     </div>
 
 
-                    <div class="col-lg-2">
+                    <div class="col-auto">
                         <div class="form-group mb-0">
                             <label class="h6"> {{translate('Date')}} </label>
                             <input type="text" class="sk-date-range form-control d-block" value="{{ $date }}"
@@ -87,7 +87,7 @@
                                    data-separator=" to " data-advanced-range="true" autocomplete="off">
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col">
                         <div class="form-group mb-0">
                             <label class="h6"> {{translate('Search By Order Code / RFID No')}} </label>
                             <input type="text" class="form-control remove-all-spaces remove-last-space d-block"
@@ -98,22 +98,25 @@
                         </div>
                     </div>
 
+
+
+                </div>
+                <div class="row gutters-5 pt-15px align-items-end justify-content-end">
+
+                    <input type="hidden" value="" name="form_type" id="form_type">
+
                     <div class="col-auto text-right">
-                        <div class="pr-5px mb-1 d-block h6"> {{ translate('Export By RFID') }} <span class="fs-10">({{ translate('Only for Export') }}) </span>
-                        </div>
 
                         <div class="sk-switch-inline d-flex align-items-center pt-10px text-left pl-1">
+                            <div class="pr-5px mb-1 d-block h6"> {{ translate('Export By RFID') }} <span class="fs-10">({{ translate('Only for Export') }}) </span>
+                            </div>
+
                             <label class="sk-switch sk-switch-success mb-0">
                                 <input type="checkbox" name="rfid_filtered">
                                 <span class="d-block mb-1 fs-10"></span>
                             </label>
                         </div>
                     </div>
-
-                </div>
-                <div class="row gutters-5 pt-15px justify-content-end">
-
-                    <input type="hidden" value="" name="form_type" id="form_type">
 
                     <div class="col-auto">
                         <div class="form-group mb-0">

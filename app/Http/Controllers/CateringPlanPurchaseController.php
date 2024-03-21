@@ -201,7 +201,7 @@ class CateringPlanPurchaseController extends Controller
                     $status_code = 0;
                 } else {
                     if ($plan_status == 1) {
-                        $status = 'Active Subscription';
+                        $status = 'Active';
                         $status_code = 1;
                     } else if ($plan_status == 2 && $status_code != 1) {
                         $status = 'Upcoming Subscription';

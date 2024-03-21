@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'application' => [
+            'driver' => 'session',
+            'provider' => 'canteen_app_users',
+        ],
+
         'api' => [
             'driver' => 'passport',
             'provider' => 'users'
@@ -68,6 +73,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'canteen_app_users' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\CanteenAppUser::class,
         ],
 
         // 'users' => [

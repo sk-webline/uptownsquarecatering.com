@@ -1,3 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.77 20.77"><defs><style>.cls-1{fill:none;stroke:#E81F26;stroke-miterlimit:10;}.cls-2{fill:#E81F26;}</style></defs>
-    <g id="content" ><circle class="cls-1" cx="10.39" cy="10.39" r="9.89" transform="translate(-2.11 18.11) rotate(-76.72)"/>
-        <path class="cls-2" d="M11.72,6.75,14,9,8.3,14.63,6.07,12.4Zm3.93-.54-1-1a1,1,0,0,0-1.39,0l-1,1L14.54,8.4l1.11-1.11A.76.76,0,0,0,15.65,6.21ZM4.91,15.54a.25.25,0,0,0,.3.3l2.49-.6L5.47,13Z"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.77 20.77">
+    <defs>
+        <style>.cls-1{fill:none;stroke:#E81F26;stroke-miterlimit:10;}.cls-2{fill:#E81F26;}</style>
+    </defs>
+    <g id="content">
+        <circle class="cls-1" cx="10.39" cy="10.39" r="9.89" transform="translate(-2.11 18.11) rotate(-76.72)"/>
+        <path class="cls-2"
+              d="M11.72,6.75,14,9,8.3,14.63,6.07,12.4Zm3.93-.54-1-1a1,1,0,0,0-1.39,0l-1,1L14.54,8.4l1.11-1.11A.76.76,0,0,0,15.65,6.21ZM4.91,15.54a.25.25,0,0,0,.3.3l2.49-.6L5.47,13Z"/>
+    </g>
+</svg>

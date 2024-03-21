@@ -40,7 +40,7 @@ class OrganisationSetting extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['organisation_id', 'max_snack_quantity','max_meal_quantity', 'absence','absence_days_num',
+    protected $fillable = ['organisation_id' , 'max_snack_quantity','max_meal_quantity', 'absence','absence_days_num',
         'preorder_days_num', 'working_week_days','working_days_january', 'working_days_february','working_days_march',
         'working_days_april','working_days_may', 'working_days_june','working_days_july', 'working_days_august', 'working_days_september','working_days_october', 'working_days_november','working_days_december'  ];
 

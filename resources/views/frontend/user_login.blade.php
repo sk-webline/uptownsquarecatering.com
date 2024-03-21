@@ -38,11 +38,11 @@
                             {{--                            @endif--}}
 
                             <div class="mt-15px">
-                                <div class="form-group mb-20px mb-sm-30px position-relative">
+                                <div class="form-group mb-20px mb-sm-30px">
                                     <div class="input-group" id="rfid_div">
                                         <div class="form-control-with-label small-focus animate flex-grow-1">
                                             <label>{{ translate('RFID no.')}}</label>
-                                            <input type="text" class="form-control border-none remove-all-spaces remove-last-space" name="rfid_no"
+                                            <input type="text" class="form-control border-none remove-all-spaces remove-last-space pt-20px" name="rfid_no"
                                                    id="rfid_no" autocomplete="off">
                                         </div>
 
@@ -50,7 +50,7 @@
 
                                             <div id="submit_button_div" class="flex-grow-1 d-none">
                                                 <button id="rfid_no_submit"
-                                                        class="btn btn-primary btn-block fs-12 xxl-fs-14 px-2px fw-400"
+                                                        class="btn btn-primary btn-block fs-12 xxl-fs-14 px-2px fw-400 "
                                                         type="button">{{ toUpper(translate('Submit'))}}</button>
                                             </div>
 
@@ -108,12 +108,6 @@
                                     </div>
                                     <div id="rfid-error-msg" class="invalid-feedback absolute fs-14"
                                          style="display: none">{{ translate('This RFID does not exist')}}</div>
-
-                                    <a href="{{route('tutorial')}}?question=1" class="register-question-link" target="_blank" data-toggle="tooltip" data-title="{{ toUpper(translate('I need help')) }}">
-                                        <svg class="h-15px h-sm-20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.39 17.38">
-                                            <use xlink:href="{{static_asset('assets/img/tutorials/question.svg')}}#content"></use>
-                                        </svg>
-                                    </a>
                                 </div>
 
 
@@ -199,7 +193,7 @@
                                                 class="form-control-with-label small-focus @if (old('email')) focused @endif">
                                                 <label>{{ translate('Email')}}</label>
                                                 <input type="email"
-                                                       class="form-control"
+                                                       class="form-control pt-20px"
                                                        name="email"
                                                        value="{{ old('email') }}">
                                             </div>
@@ -214,7 +208,7 @@
                                             <div class="form-control-with-label small-focus animate">
                                                 <label>{{ translate('Password')}}</label>
                                                 <input type="password"
-                                                       class="form-control"
+                                                       class="form-control pt-20px"
                                                        name="password"
                                                 >
                                             </div>

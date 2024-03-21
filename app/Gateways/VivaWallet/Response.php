@@ -23,7 +23,7 @@ class Response
         $this->getEci();
     }
 
-    private function getEvents() {
+    public function getEvents() {
         $this->event = (object) array(
             0 => (object) array('reason' => 'Undefined', 'explanation' => 'Undefined', 'type' => 'System'),
             2061 => (object) array('reason' => '3DS flow incomplete', 'explanation' => 'Browser closed before authentication finished.', 'type' => 'User'),
@@ -57,6 +57,10 @@ class Response
             10301 => (object) array('reason' => 'Soft decline', 'explanation' => 'The issuer requests Strong Customer Authentication. The merchant should retry the transaction after successfully authenticating customer with 3DS first.', 'type' => 'Issuer'),
         );
     }
+
+
+
+
 
     private function getEci() {
         $this->eci = (object) array(

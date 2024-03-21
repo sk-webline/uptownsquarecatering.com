@@ -272,6 +272,18 @@
                     </a>
                 </li>
 
+                <li class="sk-side-nav-item">
+                    <a href="{{ route('credit_cards') }}" class="sk-side-nav-link {{ areActiveRoutes(['credit_cards'])}}">
+                        <div class="sk-side-nav-icon">
+                            <svg class="w-20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.68 14.83">
+                                <use
+                                    xlink:href="{{static_asset('assets/img/icons/credit_card_icon.svg')}}#content"></use>
+                            </svg>
+                        </div>
+                        <span class="sk-side-nav-text">{{translate('Credit Cards')}}</span>
+                    </a>
+                </li>
+
                 @if (\App\BusinessSetting::where('type', 'conversation_system')->first()->value == 1)
                     @php
                         $conversation = \App\Conversation::where('sender_id', Auth::user()->id)->where('sender_viewed', 0)->get();
@@ -360,9 +372,9 @@
         @endif
 
     </div>
-    <a href="{{route('card.register_new_card')}}" class="btn btn-primary btn-block fs-14 md-fs-16 fw-400 py-1 lh-1">{{ toUpper(translate('Register New Card')) }}</a>
+    <a href="{{route('card.register_new_card')}}" class="btn btn-outline-primary btn-block fs-14 md-fs-16 fw-400 py-1 lh-1 py-10px border-width-2 border-primary">{{ toUpper(translate('Register New Card')) }}</a>
 
-    <div class="d-none d-lg-block mt-20px">
+    <div class="d-lg-block mt-20px">
         <h3 class="mb-15px fs-14 xl-fs-16 fw-700">{{translate('Help & Info')}}</h3>
         <div class="fs-12 xl-fs-14 text-primary-50">
             <p class="mb-2">

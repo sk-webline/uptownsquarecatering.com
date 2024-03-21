@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\SearchController;
 use App\Mail\InvoiceEmailManager;
+use App\Models\AppOrder;
+use App\Models\AppRefundDetail;
+use App\Models\CanteenAppUser;
 use App\Models\Cart;
 use App\Models\EmailForOrder;
 use App\Models\Order;
@@ -14,6 +17,7 @@ use App\Models\PlatformSetting;
 use App\ProductType;
 use App\Store;
 use Carbon\Carbon;
+use Carbon\Exceptions\NotACarbonClassException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
@@ -62,16 +66,15 @@ use Illuminate\Support\Facades\Session as FacadesSession;
 use PDF;
 use Config;
 
-
 class HomeController extends Controller
 {
     protected array $redis_url_scan = [];
-
     public function sessions()
     {
-        if ($_SERVER['REMOTE_ADDR'] == '82.102.76.201') {
+        if ($_SERVER['REMOTE_ADDR'] == '82.102.76.201' || request()->ip() == '127.0.0.1') {
             dd(Session::all());
         }
+
         abort(403);
     }
 
@@ -171,12 +174,20 @@ class HomeController extends Controller
 
     public function login()
     {
-        if (Auth::check() && Auth::user()->user_type = 'customer') {
+
+        if (Auth::check() && Auth::user()->user_type == 'customer') {
             return redirect()->route('dashboard');
-        } else if (Auth::check() && Auth::user()->user_type = 'cashier') {
+        } else if (Auth::check() && Auth::user()->user_type == 'cashier') {
 
             if (auth()->user()->active == 1) {
                 return redirect()->route('cashier.select_location');
+            } else {
+                return redirect()->route('logout');
+            }
+
+        }elseif(Auth::check() && Auth::user()->user_type == 'canteen_cashier') {
+            if (auth()->user()->active == 1) {
+                return redirect()->route('canteen_cashier.select_location');
             } else {
                 return redirect()->route('logout');
             }
@@ -187,9 +198,14 @@ class HomeController extends Controller
 
     public function login_cashier()
     {
-        if (Auth::check()) {
-            return redirect()->route('cashier.select_location');
+        if (Auth::check()){
+            if(Auth::user()->user_type == 'cashier') {
+                return redirect()->route('cashier.select_location');
+            }else{
+                return redirect()->route('logout');
+            }
         }
+
         return view('frontend.cashier_login');
     }
 
@@ -2297,20 +2313,64 @@ class HomeController extends Controller
 
     }
 
+    public function app_order_details(Request $request)
+    {
+//        return response()->json(['status' => 1,$request->all()]);
+
+        $order = AppOrder::find($request->order_id);
+
+        if($order==null){
+            return response()->json(['status' => 0, 'msg' => translate('Order does not exists')]);
+        }
+
+        $canteen_user = CanteenAppUser::find($order->user_id);
+        if($canteen_user==null || $canteen_user->user_id != auth()->user()->id){
+            return response()->json(['status' => 0, 'msg' => translate('Unauthorized information')]);
+        }
+
+
+        $order_details_ids = $order->orderDetails->pluck('id');
+        $canteen_purchases = \App\Models\CanteenPurchase::whereIn('canteen_order_detail_id', $order_details_ids)->get();
+//        $refunds = [];
+        $refunds = AppRefundDetail::select('app_refund_details.app_order_code', 'app_refund_details.items_refunded_quantity as quantity ', 'canteen_purchases.date', 'canteen_purchases.break_num', 'canteen_purchases.price',
+            'canteen_purchases.canteen_product_id as product_id', 'canteen_purchases.break_hour_from')
+            ->join('app_order_details', 'app_order_details.id', '=', 'app_refund_details.app_order_detail_id')
+            ->join('canteen_purchases', 'app_order_details.id', '=', 'canteen_purchases.canteen_order_detail_id')
+            ->where('app_refund_details.app_order_id', $order->id)
+            ->where(function ($refund) {
+                $refund
+                    ->where('canteen_purchases.deleted_at', null)
+                    ->orWhere('canteen_purchases.deleted_at', '!=', null);
+            })
+            ->orderBy('canteen_purchases.date', 'asc')->get();
+
+
+        return response()->json(['status' => 1, 'view' => view('frontend.partials.canteen_order_details', compact('canteen_user','order', 'canteen_purchases', 'refunds', 'order_details_ids'))->render()]);
+    }
+
     public function debug()
     {
 
+        if (request()->ip() == '82.102.76.201' || request()->ip() == '127.0.0.1' ) {
 
-        return Carbon::today()->format('Y-m-d H:i:s') . ' ' . Carbon::now()->format('Y-m-d H:i:s');
+            $export_data = Session::get('export_data');
 
-        $organisation = Organisation::find(3);
+            $data =json_decode(json_encode(end($export_data)), true);
 
-        return EmailForOrder::find(1)->email;
-//                        if ($_SERVER['REMOTE_ADDR'] == '82.102.76.201') {
-//                            if ($organisation->email_for_order_id == null) {
-//                                $emails[] = EmailForOrder::find(1)->email;
-//                            } else {
-//                                $emails[] = $organisation->email_for_order->email;
+            dd($data);
+
+//            $array = explode('/', \Illuminate\Support\Facades\Session::get('_previous')['url']);
+//
+//            $last_page = end($array);
+//            dd(explode('/', \Illuminate\Support\Facades\Session::get('_previous')['url']),$last_page);
+//
+//            dd(Carbon::create("2023-12-01 00:00:00")->format('Y-m-d'));
+
+//           dd(day_name('mon'));
+
+        }
+
+        abort(409);
 
     }
 }

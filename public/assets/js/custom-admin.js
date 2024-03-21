@@ -57,20 +57,19 @@ if($('.form-control-with-label').length > 0) {
 }
 
 $('.dd_mm_formatted').on("change keyup keypress", function() {
-
-    console.log('alooo');
     if (this.value.length > 0) {
         this.setAttribute(
             "data-date",
             moment(this.value, "YYYY-MM-DD").format(this.getAttribute("data-date-format"))
         );
+    }else{
+        this.setAttribute("data-date", "");
     }
 
 }).trigger("change");
 
 $('.remove-last-space').on("change keyup keypress", function() {
 
-    // console.log('alooo');
 
     var input = $(this).val();
     if (input.substring(input.length-1, input.length)==' ') {

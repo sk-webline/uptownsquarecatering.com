@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Card;
+use App\Models\CreditCard;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -141,4 +142,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Card::class);
     }
+
+    public function credit_cards()
+    {
+        return $this->hasMany(CreditCard::class);
+    }
+
+
 }

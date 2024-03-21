@@ -18,7 +18,7 @@
 
     <div class="sk-titlebar text-left mt-2 mb-3">
         <div class="align-items-center">
-            <h1 class="h3">{{translate('All Customers')}}</h1>
+            <h1 class="h3">{{translate('All Catering Customers')}}</h1>
         </div>
     </div>
 
@@ -143,6 +143,7 @@
                     <th data-breakpoints="lg">#</th>
                     <th>{{translate('Name')}}</th>
                     <th data-breakpoints="lg">{{translate('Email Address')}}</th>
+                    <th data-breakpoints="lg">{{translate('Register Date')}}</th>
                     <th class="text-right">{{translate('Options')}}</th>
                 </tr>
                 </thead>
@@ -159,7 +160,7 @@
                                     <i class="fa fa-ban text-danger" aria-hidden="true"></i>
                                 @endif {{$customer->user->name}}</td>
                             <td>{{$customer->user->email}}</td>
-                            {{--                            <td>{{$customer->user->phone}}</td>--}}
+                            <td>{{ \Carbon\Carbon::create($customer->created_at)->format('d/m/Y') }}</td>
 
 
                             <td class="text-right">

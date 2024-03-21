@@ -34,7 +34,7 @@
                     <div class="card-header">
                         <h5 class="mb-0 h6">
                         <a href="{{route('organisations.index')}}" class="text-black" >{{translate('Organisations')}} </a> > {{$organisation->name}} >
-                        <a href="{{route('organisation_settings.index', $organisation->id)}}" class="text-black" >{{translate('Periods')}} </a> >
+                        <a href="{{route('catering.index', $organisation->id)}}" class="text-black" >{{translate('Periods')}} </a> >
                         {{date("d/m/Y", strtotime($organisation_setting->date_from))}}
                         - {{date("d/m/Y", strtotime($organisation_setting->date_to))}}
                             > <a class="text-black" href="{{route('catering_plans.index', $organisation_setting->id )}}"> {{translate('Catering Plan')}} </a>

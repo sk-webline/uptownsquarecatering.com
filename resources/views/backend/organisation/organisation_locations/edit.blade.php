@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <h5 class="mb-0 h6"><a href="{{route('organisations.index')}}" class="text-black" >{{translate('Organisations')}} </a> >
                         {{$organisation->name}} >
-                        <a href="{{route('organisation_locations.index', $organisation->id)}}" class="text-black" >{{translate('Locations')}} </a> > {{$location->name}}
+                        <a href="{{route('catering.index', $organisation->id)}}" class="text-black" >{{translate('Locations')}} </a> > {{$location->name}}
                     > {{translate('Edit Location')}}</h5>
                 </div>
 
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group mb-0 text-right">
-                            <a href="{{route('organisation_locations.index', $organisation->id)}}">
+                            <a href="{{route('catering.index', $organisation->id)}}">
                                 <button type="button" class="btn btn-soft-danger">{{translate('Cancel')}}</button>
                             </a>
                             <button type="submit"

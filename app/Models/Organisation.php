@@ -37,6 +37,7 @@ class Organisation extends Model
     }
 
     /**
+     * Catering Settings (Periods)
      * Get the organisation setting of this organisation.
      */
     public function settings(): HasMany
@@ -45,6 +46,7 @@ class Organisation extends Model
     }
 
     /**
+     *  Catering Locations
      * Get the organisation setting of this organisation.
      */
     public function locations(): HasMany
@@ -93,6 +95,56 @@ class Organisation extends Model
     public function email_for_order(): BelongsTo
     {
         return $this->belongsTo(EmailForOrder::class);
+    }
+
+    /**
+     * Get the canteen setting of this organisation.
+     */
+    public function canteen_settings(): HasMany
+    {
+        return $this->hasMany(CanteenSetting::class);
+    }
+
+    /**
+     * Get the canteen locations of this organisation.
+     */
+    public function canteen_locations(): HasMany
+    {
+        return $this->hasMany(CanteenLocation::class);
+    }
+
+    /**
+     * Get the organisation setting of this organisation.
+     */
+    public function breaks(): HasMany
+    {
+        return $this->hasMany(OrganisationBreak::class);
+    }
+
+    /**
+     * Get the organisation's most recent settings.
+     */
+    public function current_canteen_settings()
+    {
+
+        $today = Carbon::now();
+        $settings= CanteenSetting::where('organisation_id',$this->id)->orderBy('date_from', 'asc')->get();
+
+
+        foreach ($settings as $setting){
+
+            $start_date = Carbon::create($setting->date_from);
+            $end_date = Carbon::create($setting->date_to);
+            if($end_date->gte($today) && $today->gte($start_date)){
+                return $setting;
+            }else if($start_date->gte($today)){
+                return $setting;
+            }
+
+        }
+
+        return array();
+
     }
 
 

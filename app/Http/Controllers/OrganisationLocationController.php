@@ -61,6 +61,7 @@ class OrganisationLocationController extends Controller
     }
 
     /**
+     * Store organisation location (catering locations) for Catering
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -81,7 +82,7 @@ class OrganisationLocationController extends Controller
 
        }
 
-        return redirect()->route('organisation_locations.index', $organisation_id);
+        return redirect()->route('catering.index', $organisation_id);
 
 
 
@@ -140,7 +141,7 @@ class OrganisationLocationController extends Controller
 
         }
 
-        return redirect()->route('organisation_locations.index', $location->organisation_id);
+        return redirect()->route('catering.index', $location->organisation_id);
 
 
 

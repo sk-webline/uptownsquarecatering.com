@@ -38,7 +38,7 @@
     ?>
 
     <div class="row calc-height">
-        <div class="col-md-11 mx-auto">
+        <div class="col mx-auto">
             <div class="card">
                 <form action="{{route('meal_reports.show')}}">
                     <div class="card-body row align-items-end">
@@ -46,10 +46,10 @@
                             {{--                            <div class="">--}}
 
                             <div class="col-auto">
-                                <div class="form-control-with-label always-focused">
-                                    <label class="d-block" for="organisation"><h6
-                                            class="title l-space-05 mb-5px opacity-80">{{translate('Organisation Filtering')}}</h6>
-                                    </label>
+                                <label class="d-block" for="organisation"><h6
+                                        class="title l-space-05 mb-5px opacity-80">{{translate('Organisation Filtering')}}</h6>
+                                </label>
+                                <div class="always-focused">
                                     <select id="demo-ease" class="sk-selectpicker w-300px" name="organisation[]"
                                             required multiple onchange="all_selected()">
                                         <option value="all" >{{ translate('All') }}</option>
@@ -65,23 +65,25 @@
                             </div>
 
                             <div class="col-auto">
-                                <div class="form-control-with-label always-focused" id="datefilterID">
-                                    <label class="d-block" for="datefilter"><h6
-                                            class="title l-space-05 opacity-80">{{translate('Date Filtering')}}</h6>
-                                    </label>
+                                <label class="d-block" for="datefilter"><h6
+                                        class="title l-space-05 opacity-80">{{translate('Date Filtering')}}</h6>
+                                </label>
+                                <div class=" always-focused" id="datefilterID">
+
                                     <input id="datefilter" name="datefilter" type="text"
-                                           class="form-control  w-300px"
+                                           class="form-control  w-100"
                                            autocomplete="off"/>
                                 </div>
                             </div>
 
                             <div class="col-auto">
-                                <div class="form-control-with-label always-focused" id="datefilterID">
-                                    <label class="d-block" for="hourpicker"><h6
-                                            class="title l-space-05 opacity-80">{{translate('Hour Filtering')}}</h6>
-                                    </label>
+                                <label class="d-block" for="hourpicker"><h6
+                                        class="title l-space-05 opacity-80">{{translate('Hour Filtering')}}</h6>
+                                </label>
+                                <div class=" always-focused" id="datefilterID">
+
                                     <input id="hourpicker" name="hourpicker" type="text"
-                                           class="form-control  w-300px"
+                                           class="form-control  w-100"
                                            autocomplete="off" />
                                 </div>
                             </div>

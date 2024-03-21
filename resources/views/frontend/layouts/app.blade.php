@@ -65,7 +65,7 @@
     <link rel="stylesheet" href="{{ static_asset('assets/css/master.css') }}">
     <link rel="stylesheet" href="{{ static_asset('assets/css/bootstrap-adds.css') }}">
     <link rel="stylesheet" href="{{ static_asset('assets/css/custom.css') }}">
-    <link rel="stylesheet" href="{{ static_asset('assets/css/tutorial.css') }}">
+    <link rel="stylesheet" href="{{ static_asset('assets/css/canteen_custom.css') }}">
 
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -204,6 +204,7 @@
     <script src="{{ static_asset('assets/js/sly/sly.min.js') }}"></script>
     <script src="{{ static_asset('assets/js/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ static_asset('assets/js/custom.js') }}"></script>
+    <script src="{{ static_asset('assets/js/canteen_custom.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales-all.global.min.js'></script>
@@ -761,6 +762,46 @@
             $('.front-header-search-fixed').removeClass('active');
           }
         });
+
+        $(document).on('click', '.edit-credit-card', function(){
+          // console.log('olaaa');
+
+            var credit_card_id = $(this).attr('data-creditCardID');
+            console.log('credit_card_id: ', credit_card_id);
+
+            $.ajax({
+                method: "POST",
+                url: "{{ route('viva.edit_credit_card') }}",
+                dataType: "JSON",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    lng: '1',
+                    credit_card_id: credit_card_id
+                },
+                success: function (data) {
+                    console.log('data: ', data);
+
+                    if(data.status == 1){
+                        window.location.href = data.RedirectUrl;
+                    }else if(data.status == 0){
+                        // $("#add-credit-card-modal").modal("show");
+                        SK.plugins.notify('warning', "{{ translate('Something went wrong!') }}");
+
+                    }
+
+                    $(this).parents('div.modal-dialog').removeClass('loader');
+                    // window.location.href = data.RedirectUrl;
+                    // removeLoader();
+                }
+            });
+
+
+
+
+        });
+
+
+
         setHeightofSideText();
         setOffsettoButtons()
         function setHeightofSideText(){

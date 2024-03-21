@@ -63,7 +63,7 @@
                                         ?>
 
                                         <form id="rfid_plan_form" class="form-default" role="form" action="{{ route('catering_plan_purchase.get_card_today_plan') }}" method="GET">
-{{--                                            @csrf--}}
+                                            @csrf
                                             <div class="mt-10px mt-md-20px mt-xxl-50px mx-auto d-flex justify-content-center px-xl-40px">
 
                                                 <input id="rfid_input" name="rfid_input" type="text"
@@ -112,6 +112,7 @@
                 </div>
             </div>
         </div>
+
         @include('frontend.inc.cashier_footer')
     </div>
 @endsection

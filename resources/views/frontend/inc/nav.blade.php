@@ -15,15 +15,7 @@
                 </a>
             </div>
             <div class="col">
-                <div class="row justify-content-end gutters-5 align-items-center">
-                    <div class="col-auto fs-16">
-                        <a href="{{route('tutorial')}}" class="header-question-link" target="_blank">
-                            <span class="d-none d-sm-inline">{{toUpper(translate('I need help'))}}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.39 17.38">
-                                <use xlink:href="{{static_asset('assets/img/tutorials/question.svg')}}#content"></use>
-                            </svg>
-                        </a>
-                    </div>
+                <div class="row justify-content-end gutters-5">
                     <div class="col-auto">
                         <div id="cart_icon">
                             @include('frontend.partials.cart')
@@ -90,15 +82,7 @@
                         </a>
                     </div>
                     <div class="col">
-                        <div class="row justify-content-end gutters-5 align-items-center">
-                            <div class="col-auto fs-16">
-                                <a href="{{route('tutorial')}}" class="header-question-link" target="_blank">
-                                    <span class="d-none d-sm-inline">{{toUpper(translate('I need help'))}}</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.39 17.38">
-                                        <use xlink:href="{{static_asset('assets/img/tutorials/question.svg')}}#content"></use>
-                                    </svg>
-                                </a>
-                            </div>
+                        <div class="row justify-content-end gutters-5">
                             <div class="col-auto">
                                 <div id="cart_icon_fixed">
                                     @include('frontend.partials.cart')

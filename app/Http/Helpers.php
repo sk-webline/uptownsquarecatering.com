@@ -28,6 +28,8 @@ use PhpParser\Node\Expr\Cast\Double;
 use Psr\Http\Message\ResponseInterface;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Redis;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 //highlights the selected navigation on admin panel
 if (!function_exists('sendSMS')) {
@@ -3058,4 +3060,102 @@ if (!function_exists('clear_html_enities')) {
         return $text;
     }
 }
+
+if (!function_exists('ordinal')) {
+    function ordinal($number) {
+        if (!is_numeric($number)) {
+            return $number; // Return as-is if not a number
+        }
+
+        if(Session::has('locale')){
+            $lang = Session::get('locale');
+        }else{
+            $lang = 'en';
+        }
+
+        if($lang == 'gr'){
+            $suffix = 'ο';
+            return $number . $suffix;
+        }
+
+        if ($number % 100 >= 11 && $number % 100 <= 13) {
+            $suffix = 'th';
+        } else {
+            switch ($number % 10) {
+                case 1: $suffix = 'st'; break;
+                case 2: $suffix = 'nd'; break;
+                case 3: $suffix = 'rd'; break;
+                default: $suffix = 'th'; break;
+            }
+        }
+
+        return $number . $suffix;
+    }
+
+}
+
+if (!function_exists('day_name')) {
+    function day_name($day)
+    {
+        if (is_numeric($day)) {
+            return null;
+        }
+
+        $day = ucfirst(strtolower($day));
+
+        if ($day == 'Mon') {
+            return 'Monday';
+        } elseif ($day == 'Tue') {
+            return 'Tuesday';
+        } elseif ($day == 'Wed') {
+            return 'Wednesday';
+        } elseif ($day == 'Thu') {
+            return 'Thursday';
+        } elseif ($day == 'Fri') {
+            return 'Friday';
+        } elseif ($day == 'Sat') {
+            return 'Saturday';
+        } elseif ($day == 'Sun') {
+            return 'Sunday ';
+        }
+
+        return null;
+    }
+
+
+
+}
+
+if (!function_exists('isApplicationAccountPage')) {
+    function isApplicationAccountPage()
+    {
+        return array(
+            'application.account',
+            'application.profile',
+            'application.available_balance',
+            'application.credit_card',
+        );
+    }
+}
+
+if (!function_exists('preorder_availability')) {
+    function preorder_availability($date, $organisation_break, $minimum_preorder_minutes)
+    {
+
+        // checks only for today
+        $carbon_now = Carbon::now();
+
+        $carbon_break = Carbon::create($date . ' ' . $organisation_break->hour_from);
+        $diffInMinutes= $carbon_now->diffInMinutes($carbon_break);
+
+        if($carbon_break->gte($carbon_now) && $diffInMinutes >= $minimum_preorder_minutes){
+            return true;
+        }else{
+
+            return false;
+        }
+
+    }
+}
+
 ?>

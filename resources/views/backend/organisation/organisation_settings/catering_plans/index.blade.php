@@ -11,8 +11,8 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <h1 class="h3 text-capitalize"> <a href="{{route('organisations.index')}}" class="text-black" >{{translate('Organisations')}} </a> > {{$organisation->name}} >
-                    <a href="{{route('organisation_settings.index', $organisation->id)}}" class="text-black" >{{translate('Periods')}} </a> >
-                    <a class="text-black" href="{{ route('organisation_settings.index', ['organisation_id'=>$organisation->id]  )}}"> {{date("d/m/Y", strtotime($organisation_setting->date_from))}}
+                    <a href="{{route('catering.index', $organisation->id)}}" class="text-black" >{{translate('Periods')}} </a> >
+                    <a class="text-black" href="{{ route('catering.index', ['organisation_id'=>$organisation->id]  )}}"> {{date("d/m/Y", strtotime($organisation_setting->date_from))}}
                     - {{date("d/m/Y", strtotime($organisation_setting->date_to))}} </a> > {{translate('Catering Plans')}}</h1>
             </div>
             <div class="col-md-6 text-md-right">

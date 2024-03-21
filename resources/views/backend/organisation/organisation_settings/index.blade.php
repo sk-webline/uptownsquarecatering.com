@@ -5,7 +5,7 @@
     <div class="sk-titlebar text-left mt-2 mb-3">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <h1 class="h3 text-capitalize"> <a href="{{route('organisations.index')}}" class="text-black" >{{translate('Organisations')}} </a> > <a class="text-black" href="{{ route('organisation_settings.index', ['organisation_id'=>$organisation->id]  )}}">{{$organisation->name}}</a> > {{translate('Periods')}}</h1>
+                <h1 class="h3 text-capitalize"> <a href="{{route('organisations.index')}}" class="text-black" >{{translate('Organisations')}} </a> > <a class="text-black" href="{{ route('catering.index', ['organisation_id'=>$organisation->id]  )}}">{{$organisation->name}}</a> > {{translate('Periods')}}</h1>
             </div>
             <div class="col-md-6 text-md-right">
                 <a href="{{ route('organisation_settings.create', ['organisation_id'=>$organisation->id]  )}}" class="btn btn-primary">
@@ -40,13 +40,13 @@
                         <td>{{ ($key+1) + ($organisation_periods->currentPage() - 1)*$organisation_periods->perPage() }}</td>
                         <td> {{date("d/m/Y", strtotime($period->date_from))}} - {{date("d/m/Y", strtotime($period->date_to))}}</td>
                         <td class="text-right">
-                            <a class="btn btn-soft-primary " href="{{route('catering_plans.index', $period->id)}}" title="{{ translate('Catering Plans') }}">
+                            <a class="btn btn-soft-primary fs-12" href="{{route('catering_plans.index', $period->id)}}" title="{{ translate('Catering Plans') }}">
                                 Catering Plans
                             </a>
-                            <a class="btn btn-soft-secondary " href="{{route('organisation_settings.edit', $period->id)}}" title="{{ translate('Edit') }}">
+                            <a class="btn btn-soft-secondary fs-12" href="{{route('organisation_settings.edit', $period->id)}}" title="{{ translate('Edit') }}">
                                 {{ translate('Edit') }}
                             </a>
-                            <a href="#" class="btn btn-soft-danger confirm-delete" data-href="{{route('organisation_settings.destroy', $period->id)}}" title="{{ translate('Delete') }}">
+                            <a href="#" class="btn btn-soft-danger confirm-delete fs-12" data-href="{{route('organisation_settings.destroy', $period->id)}}" title="{{ translate('Delete') }}">
                                 {{ translate('Delete') }}
                             </a>
 

@@ -49,7 +49,8 @@ class ApiClient
 
         $this->client = new GuzzleClient([
             'accept' => 'application/json',
-            'headers' => $this->headers
+            'headers' => $this->headers,
+            'verify'  => false, // Disable SSL verification
         ]);
 
     }
@@ -73,11 +74,12 @@ class ApiClient
     public function get(string $url, array $options = [])
     {
 
-//        $response = $this->client->get($url, $options);
+//        return $response = $this->client->get($url, $options);
 //
 //        return $this->getBody($response);
 
         try {
+//            return 7;
             $response = $this->client->get($url, $options);
             return $response;
         }catch (BadResponseException $e) {
@@ -85,6 +87,8 @@ class ApiClient
         }catch(ClientException | RequestException | ServerException $e) {
             return $e->getResponse();
         }
+
+
     }
 
     /**

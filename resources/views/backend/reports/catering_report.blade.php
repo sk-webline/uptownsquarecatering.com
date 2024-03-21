@@ -40,43 +40,35 @@
 
     ?>
 
-    <div class="row calc-height">
-        <div class="col-md-11 mx-auto">
+    <div class="row calc-height catering_report">
+        <div class="col mx-auto">
             <div class="card">
                 <form action="{{route('catering_reports.show')}}">
                     <div class="card-body row align-items-end">
                         <div class="col-9 row align-items-end">
-                            {{--                            <div class="">--}}
 
                             <div class="col-auto">
-                                <div class="form-control-with-label always-focused">
-                                    <label class="d-block" for="organisation"><h6
-                                            class="title l-space-05 mb-5px opacity-80">{{translate('Organisation Filtering')}}</h6>
-                                    </label>
-                                    <select id="demo-ease" class="sk-selectpicker w-300px" name="organisation[]"
+                                <div class="form-group mb-0">
+                                    <label class="h6"> {{translate('Organisation')}} </label>
+                                    <select id="demo-ease" class="sk-selectpicker w-300px d-block" name="organisation[]"
                                             required multiple onchange="all_selected()">
-                                        <option value="all" >{{ translate('All') }}</option>
+                                        <option value="all">{{ translate('All') }}</option>
                                         @foreach (\App\Models\Organisation::all() as $key => $organisation)
                                             <option
                                                 value="{{ $organisation->id }}">{{ $organisation->name }}
                                             </option>
-{{--                                            <option--}}
-{{--                                                value="{{ $organisation->id }}">American Academy47--}}
-{{--                                            </option>--}}
                                         @endforeach
                                     </select>
-
-
                                 </div>
                             </div>
 
                             <div class="col-auto">
+                                <label class="d-block" for="datefilter"><h6
+                                        class="title l-space-05 opacity-80">{{translate('Date Filtering')}}</h6>
+                                </label>
                                 <div class="form-control-with-label always-focused" id="datefilterID">
-                                    <label class="d-block" for="datefilter"><h6
-                                            class="title l-space-05 opacity-80">{{translate('Date Filtering')}}</h6>
-                                    </label>
                                     <input id="datefilter" name="datefilter" type="text"
-                                           class="form-control  w-300px"
+                                           class="form-control w-100 fw-400 py-0"
                                            autocomplete="off"/>
                                 </div>
                             </div>
@@ -136,8 +128,8 @@
 
                                 @foreach($organisations as $organisation)
                                     <tr class="h-30px text">
-                                        <th class=" fixed-side min-w-200px border-table " ><span>{{$organisation->name}}</span>
-{{--                                            <span style="color: #eee">--</span>--}}
+                                        <th class="fixed-side min-w-200px border-table text-red" ><span>{{$organisation->name}}</span>
+                                            <span style="color: #eee">--</span>
                                         </th>
 
                                         @for($i=$c; $i<$day_count+$c; $i++)
@@ -218,6 +210,10 @@
             let old_select = [];
 
             $(function () {
+
+                @if(isset($start_date_string))
+                    console.log('$start_date_string: ', '{{$start_date_string}}');
+                @endif
 
                 var start = moment().startOf('year');
                 var end = moment().endOf('year');

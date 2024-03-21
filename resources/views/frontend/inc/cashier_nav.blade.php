@@ -5,6 +5,8 @@ $user = \Illuminate\Support\Facades\Auth::user();
 $organisation = \App\Models\Organisation::findorfail(Session::get('organisation_id'));
 $location = \App\Models\OrganisationLocation::findorfail(Session::get('location_id'));
 ?>
+
+
 <div class="cashier-header py-10px py-md-30px py-xxl-50px">
     <div class="cashier-grid">
         <div class="row gutters-10 sm-gutters-15 align-items-center">

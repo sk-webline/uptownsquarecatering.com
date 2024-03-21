@@ -53,25 +53,23 @@
         </div>
     </div>
 </div>
+
 <script>
 
     var calendarEl = document.getElementById('calendar');
 
     var date_start = '{{$start_day}}';
-
     var date_end = '{{\Carbon\Carbon::create($last_day)->addDay()->format('Y-m-d')}}';
+    let lan = '{{App::getLocale()}}';
 
-
-    var language = '{{App::getLocale()}}';
-    console.log('date_start: '+date_start);
-    console.log('date_end: '+date_end);
-    if(language=='gr'){
-        language = 'el';
+    if(lan=='gr'){
+        lan = 'el';
     }
+
 
     // console.log(calendarEl);
     calendar = new FullCalendar.Calendar(calendarEl, {
-        locale: language,
+        locale: lan,
         headerToolbar: {
             left: "prev",
             center: "",
@@ -94,7 +92,6 @@
                 @else
                 duration: {months: 1}
                 @endif
-
             }
         },
         dateIncrement: {months: 1},
@@ -121,7 +118,7 @@
         },
         events: [
 
-            @foreach($events as $event)
+                @foreach($events as $event)
                 @php
                     if($event[ 'color'] == 1) {
                         $color = '#09934A';
@@ -131,13 +128,15 @@
                         $color = '#E09105';
                     }
                 @endphp
-                {
-                    id: '{{$event[ 'date']}}',
-                    start: '{{$event[ 'date']}}', // '2023-07-31' ,
-                    display: 'background',
-                    color: '{{$color}}',
+            {
+                id: '{{$event[ 'date']}}',
+                start: '{{$event[ 'date']}}', // '2023-07-31' ,
+                display: 'background',
+                color: '{{$color}}',
 
-                },
+            },
+
+
             @endforeach
         ],
 

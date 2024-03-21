@@ -21,12 +21,11 @@ class ZeroVendingApiMethods extends Model
         $client = new ApiClient;
 
         $url = config('app.zerovending.url').'/webservices/get_organisations?token='.config('app.zerovending.token');
-
         $response= $client->get($url,
             array_merge_recursive(
                 [RequestOptions::HEADERS => ['Content-Type' => 'application/json', 'Accept'=> 'application/json']],
-
-            )) ;
+            ));
+//        dd($url, $response, $response->getBody());
 
         return $response->getBody();
 

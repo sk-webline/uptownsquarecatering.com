@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <h5 class="mb-0 h6"> <a href="{{route('organisations.index')}}" class="text-black" >{{translate('Organisations')}} </a> >
                         {{$organisation->name}} >
-                        <a href="{{route('organisation_locations.index', $organisation->id)}}" class="text-black" >{{translate('Locations')}} </a> > {{translate('Add New Location')}}</h5>
+                        <a href="{{route('catering.index', $organisation->id)}}" class="text-black" >{{translate('Locations')}} </a> > {{translate('Add New Location')}}</h5>
                 </div>
                 <div class="card-body">
                     <form class="form-horizontal" action="{{ route('organisation_locations.store', ['organisation_id'=>$organisation->id] ) }}" method="POST" enctype="multipart/form-data">
@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="form-group mb-0 text-right">
-                            <a href="{{route('organisation_locations.index', $organisation->id)}}">
+                            <a href="{{route('catering.index', $organisation->id)}}">
                                 <button type="button" class="btn btn-soft-danger">{{translate('Cancel')}}</button>
                             </a>
                             <button type="submit" class="btn btn-primary">{{translate('Save')}}</button>

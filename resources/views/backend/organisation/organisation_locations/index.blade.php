@@ -43,10 +43,10 @@
                         <td>{{ ($key+1) + ($organisation_locations->currentPage() - 1)*$organisation_locations->perPage() }}</td>
                         <td> {{$location->name}}</td>
                         <td class="text-right">
-                            <a class="btn btn-soft-secondary" href="{{route('organisation_locations.edit', $location->id)}}" title="{{ translate('Edit') }}">
+                            <a class="btn btn-soft-secondary fs-12" href="{{route('organisation_locations.edit', $location->id)}}" title="{{ translate('Edit') }}">
                                 {{ translate('Edit') }}
                             </a>
-                            <a href="#" class="btn btn-soft-danger confirm-delete" data-href="{{route('organisation_locations.destroy', $location->id)}}" title="{{ translate('Delete') }}">
+                            <a href="#" class="btn btn-soft-danger confirm-delete fs-12" data-href="{{route('organisation_locations.destroy', $location->id)}}" title="{{ translate('Delete') }}">
                                 {{ translate('Delete') }}
                             </a>
 

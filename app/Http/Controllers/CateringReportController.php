@@ -90,17 +90,11 @@ class CateringReportController extends Controller
             $organisations = Organisation::select('id', 'name')->get();
         }
 
-//        $organisation_count = count($organisations);
-
 
         $end_date = Carbon::create($end_date_string_temp);
 
         $dates = array();
         $totals = array();
-
-//        $flag = 0;
-
-//        $response = $organisations->whereIn('')
 
         $today = Carbon::create($start_date_string_temp);
 
@@ -111,7 +105,6 @@ class CateringReportController extends Controller
             $totals[] = array('total'=> 'Total','date' => $today->format('d/m/y'), 'snack'=>0, 'meal'=>0);
             $today->addDay();
             $day_count = $day_count + 1;
-
 
         }
 

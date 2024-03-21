@@ -29,12 +29,11 @@ class OrganisationSettingsController extends Controller
     public function index(Request $request, $organisation_id)
     {
 
-        $organisation = Organisation::findOrFail($organisation_id);
-        $organisation_periods = OrganisationSetting::where('organisation_id', $organisation_id);
-        $organisation_periods = $organisation_periods->paginate(15);
-
-
-        return view('backend.organisation.organisation_settings.index', compact('organisation', 'organisation_periods'));
+//        $organisation = Organisation::findOrFail($organisation_id);
+//        $organisation_periods = OrganisationSetting::where('organisation_id', $organisation_id);
+//        $organisation_periods = $organisation_periods->paginate(15);
+//
+//        return view('backend.organisation.organisation_settings.index', compact('organisation', 'organisation_periods'));
 
 
     }
@@ -49,10 +48,16 @@ class OrganisationSettingsController extends Controller
 
         $organisation = Organisation::findOrFail($organisation_id);
 
-        return view('backend.organisation.organisation_settings.create', compact('organisation'));
+        if ($organisation->catering == 1){
+            return view('backend.organisation.organisation_settings.create', compact('organisation'));
+        }else{
+            return back();
+        }
+
     }
 
     /**
+     * Store organisation setting (periods) for Catering
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -272,7 +277,7 @@ class OrganisationSettingsController extends Controller
             if ($organisation->catering == 1) {
                 return redirect()->route('organisation_prices.create', ['organisation_setting_id' => $organisation_setting->id]);
             } else {
-                return redirect()->route('organisation_settings.index', $organisation_setting->id);
+                return redirect()->route('catering.index', $organisation_setting->id);
             }
 
 
@@ -281,7 +286,6 @@ class OrganisationSettingsController extends Controller
             return redirect()->back();
 
         }
-
 
     }
 
@@ -575,17 +579,15 @@ class OrganisationSettingsController extends Controller
 
         if ($organisation_setting->save()) {
             flash(translate('Organisation Settings have been updated successfully'))->success();
-//            return $organisation_setting;
 
 
         } else {
             flash(translate('Sorry! Something went wrong!'))->error();
         }
 
-//        return view('organisation_settings.edit', $organisation_setting->id, (compact('go_to_prices')));
+        return back();
 
-        //return redirect()->route('organisation_settings.edit', $organisation_setting->organisation_id);   route('organisation_settings.edit', $period->id
-        return view('backend.organisation.organisation_settings.edit', compact('organisation_setting', 'organisation', 'go_to_prices'));
+//        return view('backend.organisation.organisation_settings.edit', compact('organisation_setting', 'organisation', 'go_to_prices'));
     }
 
     /**
@@ -601,5 +603,56 @@ class OrganisationSettingsController extends Controller
         $organisation_settings->delete();
 
         return redirect()->back();
+    }
+
+    public function get_settings_details(Request $request){
+
+        $organisation = Organisation::find($request->organisation_id);
+
+        if ($organisation == null){
+            return response()->json([
+                'status'=> 0,
+                'message' => translate('Organisation not found')
+            ]);
+        }
+
+        $organisation_period = OrganisationSetting::find($request->organisation_setting_id);
+
+        if ($organisation_period == null){
+            return response()->json([
+                'status'=> 0,
+                'message' => translate('Organisation Period not found')
+            ]);
+        }
+
+        if ($organisation_period->organisation_id != $organisation->id){
+            return response()->json([
+                'status'=> 0,
+                'message' => translate('Organisation Period and Organisation do not match')
+            ]);
+        }
+
+        if($organisation_period->date_to < Carbon::today()->format('Y-m-d')){
+            return response()->json([
+                'status'=> 0,
+                'message' => translate('Organisation Period is expired')
+            ]);
+        }
+
+        $extra_days = OrganisationExtraDay::where('organisation_setting_id', $organisation_period->id)->pluck('date');
+
+        return response()->json([
+            'status'=> 1,
+            'start_date' => Carbon::create($organisation_period->date_from)->format('Y-m-d') ,
+            'end_date' => Carbon::create($organisation_period->date_to)->format('Y-m-d') ,
+            'working_week_days' => json_decode($organisation_period->working_week_days),
+            'holidays' => json_decode($organisation_period->holidays),
+            'extra_days' => $extra_days
+        ]);
+
+
+
+
+
     }
 }

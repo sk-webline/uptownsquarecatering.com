@@ -38,6 +38,19 @@ class Card extends Model
         return $this->belongsTo(Organisation::class);
     }
 
+    /**
+     * Get the organisation that owns these settings.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function canteen_app_user()
+    {
+        return $this->hasOne(CanteenAppUser::class);
+    }
+
 
 
 

@@ -1,0 +1,1 @@
+@dd('canteen offline page')

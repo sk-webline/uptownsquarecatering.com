@@ -12,7 +12,6 @@
  */
 // use App\Mail\SupportMailManager;
 /* TODO: Start Routes for delete */
-
 Route::group(['middleware' => ['debug_ip_only', 'no_cache']], function () {
     Route::get('/redis_data/{search_key?}', 'HomeController@redis_data');
     Route::get('/debug_code', 'HomeController@debug');
@@ -30,6 +29,7 @@ Route::get('/dev/find_images', 'DevController@findUnusedImagesFromUploadsTable')
 /* TODO: End Routes for delete */
 
 Route::get('/sessions', 'HomeController@sessions')->middleware('no_cache');
+Route::get('/debug', 'HomeController@debug'); //->middleware('no_cache');
 Route::get('/coming-soon', 'HomeController@coming_soon')->name('coming_soon');
 
 Route::group(['middleware' => ['coming_soon']], function () {
@@ -228,6 +228,10 @@ Route::group(['middleware' => ['coming_soon']], function () {
         Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard')->middleware([ 'user']);
         Route::get('/dashboard/subscription_history/{card_id}', 'CardController@subscription_history')->name('dashboard.subscription_history');
         Route::get('/dashboard/meals_history/{card_id}', 'CardController@meals_history')->name('dashboard.meals_history');
+        Route::post('/dashboard/app_order_details', 'HomeController@app_order_details')->name('user.app_order_details');
+
+
+
         Route::get('/profile', 'HomeController@profile')->name('profile');
         Route::post('/new-user-verification', 'HomeController@new_verify')->name('user.new.verify');
         Route::post('/new-user-email', 'HomeController@update_email')->name('user.change.email');
@@ -255,6 +259,21 @@ Route::group(['middleware' => ['coming_soon']], function () {
 
         Route::get('digital_purchase_history', 'PurchaseHistoryController@digital_index')->name('digital_purchase_history.index');
         Route::post('/user/close_account', 'HomeController@close_account')->name('user.close_account');
+
+//        New website route
+        Route::get('/credit_cards', 'CreditCardController@index')->name('credit_cards');
+        Route::post('/credit_cards/delete_card', 'CreditCardController@delete_credit_card')->name('credit_card.delete_credit_card');
+
+        Route::post('/store_canteen_user', 'CanteenAppUserController@store_ajax')->name('canteen_app_user.store_ajax');
+        Route::post('/canteen_user/unassigned_credit_card', 'CanteenAppUserController@unassign_credit_card')->name('canteen_app_user.unassigned_credit_card');
+        Route::post('/canteen_user/update_username', 'CanteenAppUserController@update_username_ajax')->name('canteen_app_user.update_username');
+        Route::post('/canteen_user/update_daily_limit', 'CanteenAppUserController@update_daily_limit')->name('canteen_app_user.update_daily_limit');
+        Route::post('/canteen_user/change_password', 'CanteenAppUserController@change_password')->name('canteen_app_user.change_password');
+        Route::post('/user/credit_card/update_nickname', 'CreditCardController@update_nickname')->name('credit_card.update_nickname');
+        Route::post('/user/credit_card/assigned_credit_card', 'CreditCardController@assigned_credit_card')->name('credit_card.assigned_credit_card');
+        Route::get('/dashboard/canteen_orders_history/{canteen_user_id}', 'CanteenAppUserController@canteen_orders_history')->name('dashboard.canteen_orders_history');
+//        Route::post('/delete_credit_card', 'CanteenAppUserController@destry')->name('canteen_app_user.unassigned_credit_card');
+
     });
 
     Route::get('/customer_products/destroy/{id}', 'CustomerProductController@destroy')->name('customer_products.destroy');
@@ -287,6 +306,7 @@ Route::group(['middleware' => ['coming_soon']], function () {
         Route::post('/products/published', 'ProductController@updatePublished')->name('products.published');
 
         Route::get('invoice/{order_id}', 'InvoiceController@invoice_download')->name('invoice.download');
+        Route::get('canteen_invoice/{order_id}', 'CanteenInvoiceController@invoice_download')->name('canteen_invoice.download');
 
         Route::resource('orders', 'OrderController');
         Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
@@ -398,9 +418,6 @@ Route::group(['middleware' => ['coming_soon']], function () {
     Route::get('/blog', 'BlogController@all_blog')->name('blog');
     Route::get('/blog/{slug}', 'BlogController@blog_details')->name('blog.details');
     Route::post('/blog/load_blog', 'BlogController@load_blog')->name('blog.load_blog');
-
-    // Tutorials
-    Route::get('/tutorial', 'TutorialController@tutorial_page')->name('tutorial');
 
     //Custom page
     Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');

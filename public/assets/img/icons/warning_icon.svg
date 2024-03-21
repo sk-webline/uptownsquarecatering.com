@@ -1,2 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.18 21.27"><defs><style>.cls-1{font-size:18.26px;fill:#f4b400;font-family:Manrope-SemiBold, Manrope SemiBold;font-weight:600;}.cls-2{fill:none;stroke:#f4b400;stroke-miterlimit:10;}</style></defs>
-    <g id="warning_svg"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><text class="cls-1" style="font-size:17.26px;fill:#f4b400;font-weight:400;" transform="translate(8.03 16.71)">!</text><circle style="fill:none;stroke:#f4b400;stroke-miterlimit:10;" class="cls-2" cx="10.59" cy="10.59" r="10.09"/></g></g></g> </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.18 21.27">
+    <defs>
+        <style>
+            .cls-1{font-size:18.26px;fill:#f4b400;font-family:Manrope-SemiBold, Manrope
+            SemiBold;font-weight:600;}.cls-2{fill:none;stroke:#f4b400;stroke-miterlimit:10;}
+        </style>
+    </defs>
+    <g id="warning_svg">
+        <g id="Layer_2" data-name="Layer 2">
+            <g id="Layer_1-2" data-name="Layer 1">
+                <text class="cls-1" style="font-size:17.26px;font-weight:400;color:white"
+                      transform="translate(8.03 16.71)">
+                    !
+                </text>
+                <circle style="fill:none;stroke:#f4b400;stroke-miterlimit:10;" class="cls-2" cx="10.59" cy="10.59"
+                        r="10.09"/>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,57 @@
+:root {
+    --secondary: #E81F26;
+    --hov-secondary: #BF1D29;
+    --dark-red: #990013;
+    --tertiary: #231F20;
+    --orange: #F57E2D;
+    --black: #000;
+    --white: #fff;
+    --error: #BC0710;
+    --green: #09934A;
+    --light-green: #4fbc08;;
+    --gray: #808080;
+    --grey: rgba(128, 128, 128, 0.63);
+    --brand-grey: rgba(230,233,239,0.4);
+    --soft-grey: rgba(0, 30, 91, 0.1);
+    --card-grey: #E6E9EF;
+    --body-size: 14px;
+    --font-family: 'Manrope', sans-serif;
+}
+
+.form-control-with-label.cust .bootstrap-select .dropdown-toggle:not(.catering_report > .form-control-with-label){
+    padding-top: 20px!important;
+    padding-bottom: 5px!important;
+}
+
+
+input[type="date"].dd_mm_formatted {
+    /*position: relative;*/
+    color: white;
+}
+
+input[type="date"].dd_mm_formatted::before {
+    /*position: absolute;*/
+    /*top: 3px; left: 3px;*/
+    content: attr(data-date);
+    display: inline-block;
+    color: var(--primary);
+    opacity: 50;
+}
+
+input[type="date"].dd_mm_formatted::-webkit-datetime-edit, input[type="date"].dd_mm_formatted::-webkit-inner-spin-button, input[type="date"].dd_mm_formatted::-webkit-clear-button{
+    display: none;
+}
+
+input[type="date"].dd_mm_formatted::-webkit-calendar-picker-indicator{
+    position: absolute;
+    /*top: 3px;*/
+    right: 3%;
+    color: var(--primary);
+    opacity: 1;
+}
+
+svg.order-button{
+    stroke:#001e5b;
+    stroke-miterlimit:10;
+    stroke-width:0.5px;
+}

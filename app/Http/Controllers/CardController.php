@@ -562,20 +562,7 @@ class CardController extends Controller
     public function card_upcoming_meals(Request $request)
     {
 
-        if (request()->ip() == '82.102.76.2011'){
-            return $request->all();
-        }
-
-        $card = Card::find($request->card_id);
-
-        if (request()->ip() == '82.102.76.2011'){
-            return $request->all();
-        }
-
-        if($card==null){
-            return array('status' => 0 , 'msg' => 'card not found', 'view' => '');
-        }
-
+        $card = Card::findorfail($request->card_id);
 
         $today = Carbon::now()->format('Y-m-d');
 
@@ -608,11 +595,6 @@ class CardController extends Controller
                 $last_day_string = $active_sub->to_date;
             }
 
-//            if($request->ip() == '82.102.76.201'){
-//                return array( 'active_subs'=> $active_subs, '$last_day' => $last_day, '$last_day_string' =>$last_day_string);
-//            }
-
-            $color = '';
             if ($active_sub->snack_quantity > 0 && $active_sub->meal_quantity > 0) {
                 $color = 1; //green
             } elseif ($active_sub->snack_quantity > 0 && $active_sub->meal_quantity == 0) {
@@ -650,6 +632,7 @@ class CardController extends Controller
 
                     }
                 } else {
+
 
                     $events [] = array('date' => $day, 'color' => $color);
                     $dates[] = $day;
@@ -923,11 +906,6 @@ class CardController extends Controller
             }
 
         }
-
-        if (request()->ip() == '82.102.76.2011'){
-            return $active_subs;
-        }
-
 
 
         $upcoming_subs = CateringPlanPurchase::where('card_id', $request->card_id)->where('from_date', '>=', $today)->select('id', 'from_date', 'to_date', 'snack_quantity', 'meal_quantity')->get();
@@ -1274,8 +1252,12 @@ class CardController extends Controller
         $start_day = Carbon::now()->format('Y-m-d');
         $last_day = $last_day_string;
 
+
+//        return $events;
+
         $monthsDifference =  Carbon::now()->diffInMonths(Carbon::parse($last_day));
-        return array('view' => view('frontend.partials.upcomingMealsCalendar', compact('card', 'events', 'start_day', 'last_day', 'start_flag', 'has_orange', 'has_blue', 'has_green', 'monthsDifference'))->render(), '$monthsDifference'=>$monthsDifference, 'events' => $events,'upcoming_subs'=> $upcoming_subs, 'active_subs'=> $active_subs);
+
+        return array('view' => view('frontend.partials.upcomingMealsCalendar', compact('card', 'events', 'start_day', 'last_day', 'start_flag', 'has_orange', 'has_blue', 'has_green', 'monthsDifference'))->render());
 
     }
 

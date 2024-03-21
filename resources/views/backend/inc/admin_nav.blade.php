@@ -25,8 +25,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-stretch flex-grow-xl-1">
-        <div class="d-none d-md-flex justify-content-around align-items-center align-items-stretch">
-            <div class="d-none d-md-flex justify-content-around align-items-center align-items-stretch">
+        <div class=" d-md-flex justify-content-around align-items-center align-items-stretch">
+            <div class="d-md-flex justify-content-around align-items-center align-items-stretch">
                 <div class="sk-topbar-item">
                     <div class="d-flex align-items-center">
                         <a class="btn btn-icon btn-circle btn-light" href="{{ route('home')}}" target="_blank" title="{{ translate('Browse Website') }}">
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="d-none d-md-flex justify-content-around align-items-center align-items-stretch ml-5">
+            <div class=" d-md-flex justify-content-around align-items-center align-items-stretch ml-5">
                 <div class="sk-topbar-item">
                     <div class="d-flex align-items-center">
                         <form class="" id="sort_categories" action="{{route('admin.rfid_search')}}" method="post">

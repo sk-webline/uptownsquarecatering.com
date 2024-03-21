@@ -22,7 +22,17 @@
                             <label class="col-md-3 col-form-label">{{translate('Catering')}}</label>
                             <div class="col-md-9">
                                 <label class="sk-switch sk-switch-success mb-0">
-                                    <input type="checkbox" name="catering" value="0" onchange="cateringValue()" checked disabled>
+                                    <input type="checkbox" name="catering" value="0" onchange="cateringValue()">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">{{translate('Canteen')}}</label>
+                            <div class="col-md-9">
+                                <label class="sk-switch sk-switch-success mb-0">
+                                    <input type="checkbox" name="canteen">
                                     <span></span>
                                 </label>
                             </div>

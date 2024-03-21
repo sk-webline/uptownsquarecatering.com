@@ -32,30 +32,64 @@
                 </li>
                 @if((Auth::user()->user_type == 'admin' || in_array('organisations', json_decode(Auth::user()->staff->role->permissions))))
                 <li class="sk-side-nav-item">
-                    <a href="{{route('organisations.index')}}" class="sk-side-nav-link {{ areActiveRoutes(['organisations.index', 'organisations.create', 'organisations.create', 'organisation_settings.index', 'organisation_settings.edit',
-                                               'organisation_settings.create', 'organisation_locations.index', 'organisation_locations.create', 'organisation_locations.edit' ,
-                                                'organisation_cards.index', 'organisation_prices.create', 'catering_plans.index','catering_plans.create', 'catering_plans.edit' ])}}" id="organisation-link">
+                    <a href="{{route('organisations.index')}}" class="sk-side-nav-link {{ areActiveRoutes(['organisations.index', 'organisations.create', 'organisations.create', 'catering.index', 'organisation_settings.edit',
+                                               'organisation_settings.create', 'catering.index', 'organisation_locations.create', 'organisation_locations.edit' ,
+                                                'organisation_cards.index', 'organisation_prices.create', 'catering_plans.index','catering_plans.create', 'catering_plans.edit',
+                                                 'canteen.index', 'canteen_settings.create', 'canteen_settings.edit','canteen_locations.create', 'canteen_locations.edit',
+                                                 'canteen_menu.index', 'canteen_menu.edit'])}}" id="organisation-link">
                         <i class="las la-home sk-side-nav-icon"></i>
                         <span class="sk-side-nav-text">{{translate('Organisations')}}</span>
                     </a>
                 </li>
                 @endif
-                @if((Auth::user()->user_type == 'admin' || in_array('catering_reports', json_decode(Auth::user()->staff->role->permissions))))
-                <li class="sk-side-nav-item">
-                    <a href="{{route('catering_reports.index')}}" class="sk-side-nav-link {{ areActiveRoutes(['catering_reports.index', 'catering_reports.show'])}}" >
-                        <i class="las la-file-alt sk-side-nav-icon"></i>
-                        <span class="sk-side-nav-text">{{translate('Catering Reports')}}</span>
-                    </a>
-                </li>
-                @endif
-                @if((Auth::user()->user_type == 'admin' || in_array('meal_reports', json_decode(Auth::user()->staff->role->permissions))))
+
+
+                @if(Auth::user()->user_type == 'admin' || in_array('reports', json_decode(Auth::user()->staff->role->permissions)))
                     <li class="sk-side-nav-item">
-                        <a href="{{route('meal_reports.index')}}" class="sk-side-nav-link {{ areActiveRoutes(['meal_reports.index', 'meal_reports.show'])}}" >
+                        <a href="#" class="sk-side-nav-link">
                             <i class="las la-file-alt sk-side-nav-icon"></i>
-                            <span class="sk-side-nav-text">{{translate('Meal Reports')}}</span>
+                            <span class="sk-side-nav-text">{{ translate('Reports') }}</span>
+                            <span class="sk-side-nav-arrow"></span>
                         </a>
+                        <ul class="sk-side-nav-list level-2">
+                            @if((Auth::user()->user_type == 'admin' || in_array('catering_reports', json_decode(Auth::user()->staff->role->permissions))))
+                                <li class="sk-side-nav-item">
+                                    <a href="{{route('catering_reports.index')}}" class="sk-side-nav-link {{ areActiveRoutes(['catering_reports.index', 'catering_reports.show'])}}" >
+                                        <i class="las la-file-alt sk-side-nav-icon"></i>
+                                        <span class="sk-side-nav-text">{{translate('Catering Reports')}}</span>
+                                    </a>
+                                </li>
+                            @endif
+                            @if((Auth::user()->user_type == 'admin' || in_array('meal_reports', json_decode(Auth::user()->staff->role->permissions))))
+                                <li class="sk-side-nav-item">
+                                    <a href="{{route('meal_reports.index')}}" class="sk-side-nav-link {{ areActiveRoutes(['meal_reports.index', 'meal_reports.show'])}}" >
+                                        <i class="las la-file-alt sk-side-nav-icon"></i>
+                                        <span class="sk-side-nav-text">{{translate('Catering Meal Reports')}}</span>
+                                    </a>
+                                </li>
+                            @endif
+
+                                @if((Auth::user()->user_type == 'admin' || in_array('canteen_reports', json_decode(Auth::user()->staff->role->permissions))))
+                                    <li class="sk-side-nav-item">
+                                        <a href="{{route('canteen_reports.index')}}" class="sk-side-nav-link {{ areActiveRoutes(['canteen_reports.index', 'canteen_reports.show'])}}" >
+                                            <i class="las la-file-alt sk-side-nav-icon"></i>
+                                            <span class="sk-side-nav-text">{{translate('Canteen Reports')}}</span>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if((Auth::user()->user_type == 'admin' || in_array('canteen_meal_reports', json_decode(Auth::user()->staff->role->permissions))))
+                                    <li class="sk-side-nav-item">
+                                        <a href="{{route('canteen_meal_reports.index')}}" class="sk-side-nav-link {{ areActiveRoutes(['canteen_meal_reports.index', 'canteen_meal_reports.show'])}}" >
+                                            <i class="las la-file-alt sk-side-nav-icon"></i>
+                                            <span class="sk-side-nav-text">{{translate('Canteen Meal Reports')}}</span>
+                                        </a>
+                                    </li>
+                                @endif
+                        </ul>
                     </li>
                 @endif
+
+
                 <!-- POS Addon-->
                 @if (\App\Addon::where('unique_identifier', 'pos_system')->first() != null && \App\Addon::where('unique_identifier', 'pos_system')->first()->activated)
                     @if(Auth::user()->user_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions)))
@@ -219,6 +253,41 @@
                     </li>
                 @endif
 
+                @if(Auth::user()->user_type == 'admin' || in_array('26', json_decode(Auth::user()->staff->role->permissions)))
+                    <li class="sk-side-nav-item {{ areActiveRoutes(['canteen_product_categories.index', 'canteen_product_categories.create', 'canteen_product_categories.edit'])}}">
+                        <a href="#" class="sk-side-nav-link">
+                            <i class="las la-shopping-cart sk-side-nav-icon"></i>
+                            <span class="sk-side-nav-text">{{translate('Canteen')}}</span>
+                            <span class="sk-side-nav-arrow"></span>
+                        </a>
+                        <!--Submenu-->
+                        <ul class="sk-side-nav-list level-2">
+                            @if(Auth::user()->user_type == 'admin' || in_array('26_1', json_decode(Auth::user()->staff->role->permissions)))
+                                <li class="sk-side-nav-item">
+                                    <a class="sk-side-nav-link" href="{{route('canteen_products.create')}}">
+                                        <span class="sk-side-nav-text">{{translate('Add New product')}}</span>
+                                    </a>
+                                </li>
+                            @endif
+                                @if(Auth::user()->user_type == 'admin' || in_array('26_2', json_decode(Auth::user()->staff->role->permissions)))
+                                    <li class="sk-side-nav-item {{ areActiveRoutes(['canteen_products.index', 'canteen_products.create', 'canteen_products.edit'])}}" >
+                                        <a class="sk-side-nav-link" href="{{route('canteen_products.index')}}">
+                                            <span class="sk-side-nav-text" >{{translate('Products')}}</span>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if(Auth::user()->user_type == 'admin' || in_array('26_3', json_decode(Auth::user()->staff->role->permissions)))
+                                    <li class="sk-side-nav-item {{ areActiveRoutes(['canteen_product_categories.index', 'canteen_product_categories.create', 'canteen_product_categories.edit'])}}">
+                                        <a class="sk-side-nav-link" href="{{route('canteen_product_categories.index')}}">
+                                            <span class="sk-side-nav-text">{{translate('Category')}}</span>
+                                        </a>
+                                    </li>
+                                @endif
+                        </ul>
+                    </li>
+                @endif
+
+
                 @if(Auth::user()->user_type == 'admin' || in_array('03', json_decode(Auth::user()->staff->role->permissions)))
                     <!-- Sale -->
                     <li class="sk-side-nav-item">
@@ -233,10 +302,29 @@
                                 <li class="sk-side-nav-item">
                                     <a href="{{ route('all_orders.index') }}"
                                        class="sk-side-nav-link {{ areActiveRoutes(['all_orders.index', 'all_orders.show', 'all_orders.show.order_number'])}}">
-                                        <span class="sk-side-nav-text">{{translate('All Orders')}}</span>
+                                        <span class="sk-side-nav-text">{{translate('Catering Orders')}}</span>
                                     </a>
                                 </li>
                             @endif
+
+                            @if(Auth::user()->user_type == 'admin' || in_array('3_2', json_decode(Auth::user()->staff->role->permissions)))
+                                <li class="sk-side-nav-item">
+                                    <a href="{{ route('canteen_orders.index') }}"
+                                           class="sk-side-nav-link {{ areActiveRoutes(['canteen_orders.index', 'canteen_orders.show'])}}">
+                                        <span class="sk-side-nav-text">{{translate('Canteen Orders')}}</span>
+                                    </a>
+                                </li>
+                            @endif
+
+
+                                @if(Auth::user()->user_type == 'admin' || in_array('3_3', json_decode(Auth::user()->staff->role->permissions)))
+                                    <li class="sk-side-nav-item">
+                                        <a href="{{ route('canteen_orders.refunds') }}"
+                                           class="sk-side-nav-link ">
+                                            <span class="sk-side-nav-text">{{translate('Canteen Refunds')}}</span>
+                                        </a>
+                                    </li>
+                                @endif
 
                             @if(Auth::user()->user_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
                                 <li class="sk-side-nav-item">
@@ -316,16 +404,32 @@
                         <ul class="sk-side-nav-list level-2">
                             <li class="sk-side-nav-item">
                                 <a href="{{ route('customers.index') }}" class="sk-side-nav-link {{ areActiveRoutes(['customers.view_catering_plans', 'customers'])}}">
-                                    <span class="sk-side-nav-text">{{ translate('Customers') }}</span>
+                                    <span class="sk-side-nav-text">{{ translate('Catering Customers') }}</span>
                                 </a>
                             </li>
+
+                            <li class="sk-side-nav-item">
+                                <a href="{{ route('canteen_customers.index') }}" class="sk-side-nav-link">
+                                    <span class="sk-side-nav-text">{{ translate('Canteen Customers') }}</span>
+                                </a>
+                            </li>
+
                             @if((Auth::user()->user_type == 'admin' || in_array('cashiers', json_decode(Auth::user()->staff->role->permissions))))
                             <li class="sk-side-nav-item">
                                 <a href="{{ route('cashiers.index') }}" class="sk-side-nav-link {{ areActiveRoutes(['cashiers.index', 'cashiers', 'cashiers.destroy', 'cashiers.edit', 'cashiers.create' ])}}">
-                                    <span class="sk-side-nav-text">{{ translate('Cashiers') }}</span>
+                                    <span class="sk-side-nav-text">{{ translate('Catering Cashiers') }}</span>
                                 </a>
                             </li>
                             @endif
+
+                            @if((Auth::user()->user_type == 'admin' || in_array('canteen_cashiers', json_decode(Auth::user()->staff->role->permissions))))
+                                <li class="sk-side-nav-item">
+                                    <a href="{{ route('canteen_cashiers.index') }}" class="sk-side-nav-link">
+                                        <span class="sk-side-nav-text">{{ translate('Canteen Cashiers') }}</span>
+                                    </a>
+                                </li>
+                            @endif
+
                             @if((Auth::user()->user_type == 'admin' || in_array('partnership_request', json_decode(Auth::user()->staff->role->permissions))))
                             <li class="sk-side-nav-item">
                                 <a href="{{ route('partnership-user.index') }}"

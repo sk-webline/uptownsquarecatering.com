@@ -1125,32 +1125,6 @@
                                 </div>
                             </div>
                             @endif
-                            @if(Auth::user()->user_type == 'admin' || in_array('catering_reports', json_decode(Auth::user()->staff->role->permissions)))
-                            <div class="row hover">
-                                <div class="col-md-10">
-                                    <label class="col-from-label">{{ translate('Catering Reports') }}</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="sk-switch sk-switch-success mb-0">
-                                        <input type="checkbox" name="permissions[]" class="form-control demo-sw" value="catering_reports" @php if(in_array('catering_reports', $permissions)) echo "checked"; @endphp>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            @endif
-                            @if(Auth::user()->user_type == 'admin' || in_array('meal_reports', json_decode(Auth::user()->staff->role->permissions)))
-                            <div class="row hover">
-                                <div class="col-md-10">
-                                    <label class="col-from-label">{{ translate('Meal Reports') }}</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="sk-switch sk-switch-success mb-0">
-                                        <input type="checkbox" name="permissions[]" class="form-control demo-sw" value="meal_reports" @php if(in_array('meal_reports', $permissions)) echo "checked"; @endphp>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            @endif
                             @if(Auth::user()->user_type == 'admin' || in_array('organisations', json_decode(Auth::user()->staff->role->permissions)))
                             <div class="row hover">
                                 <div class="col-md-10">
@@ -1164,6 +1138,76 @@
                                 </div>
                             </div>
                             @endif
+
+
+                                @if(Auth::user()->user_type == 'admin' || in_array('reports', json_decode(Auth::user()->staff->role->permissions)))
+                                    <div class="row hover">
+                                        <div class="col-md-10">
+                                            <label class="col-from-label">{{ translate('Reports') }}</label>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label class="sk-switch sk-switch-success mb-0">
+                                                <input type="checkbox" name="permissions[]" class="form-control demo-sw" value="reports" @php if(in_array('reports', $permissions)) echo "checked"; @endphp>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="pl-2">
+                                    @if(Auth::user()->user_type == 'admin' || in_array('catering_reports', json_decode(Auth::user()->staff->role->permissions)))
+                                        <div class="row hover">
+                                            <div class="col-md-10">
+                                                <label class="col-from-label">{{ translate('Catering Reports') }}</label>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="sk-switch sk-switch-success mb-0">
+                                                    <input type="checkbox" name="permissions[]" class="form-control demo-sw" value="catering_reports" @php if(in_array('catering_reports', $permissions)) echo "checked"; @endphp>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if(Auth::user()->user_type == 'admin' || in_array('catering_reports', json_decode(Auth::user()->staff->role->permissions)))
+                                            <div class="row hover">
+                                                <div class="col-md-10">
+                                                    <label class="col-from-label">{{ translate('Meal Reports') }}</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="sk-switch sk-switch-success mb-0">
+                                                        <input type="checkbox" name="permissions[]" class="form-control demo-sw" value="meal_reports" @php if(in_array('meal_reports', $permissions)) echo "checked"; @endphp>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                    @endif
+
+                                        @if(Auth::user()->user_type == 'admin' || in_array('canteen_reports', json_decode(Auth::user()->staff->role->permissions)))
+                                            <div class="row hover">
+                                                <div class="col-md-10">
+                                                    <label class="col-from-label">{{ translate('Canteen Reports') }}</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="sk-switch sk-switch-success mb-0">
+                                                        <input type="checkbox" name="permissions[]" class="form-control demo-sw" value="canteen_reports" @php if(in_array('canteen_reports', $permissions)) echo "checked"; @endphp>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if(Auth::user()->user_type == 'admin' || in_array('canteen_meal_reports', json_decode(Auth::user()->staff->role->permissions)))
+                                            <div class="row hover">
+                                                <div class="col-md-10">
+                                                    <label class="col-from-label">{{ translate('Canteen Meal Reports') }}</label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="sk-switch sk-switch-success mb-0">
+                                                        <input type="checkbox" name="permissions[]" class="form-control demo-sw" value="canteen_meal_reports" @php if(in_array('canteen_meal_reports', $permissions)) echo "checked"; @endphp>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        @endif
+                                </div>
                         </div>
                     </div>
                     <div class="form-group mb-0 text-right">

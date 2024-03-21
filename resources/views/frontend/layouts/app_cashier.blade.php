@@ -63,6 +63,10 @@
             <link rel="stylesheet" href="{{ static_asset('assets/css/bootstrap-adds.css') }}">
             <link rel="stylesheet" href="{{ static_asset('assets/css/custom.css') }}">
 
+            <link rel="stylesheet" href="{{ static_asset('assets/css/canteen_cashier.css') }}">
+
+
+
 
             <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
