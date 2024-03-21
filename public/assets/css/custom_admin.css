@@ -1,0 +1,411 @@
+#calendar .fc-multimonth-daygrid-table {
+    max-height: 400px!important
+}
+
+ .fc .fc-bg-event {
+    opacity: 1!important;
+}
+
+ .w-300px{
+     width: 300px!important;
+ }
+
+.table-style{
+    overflow: scroll; /* Scrollbar are always visible */
+    overflow: auto;   /* Scrollbar is displayed as it's needed */
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.min-w-200px{
+    min-width: 200px!important;
+}
+
+.border-table {
+    border: 0.005em solid rgba(0, 0, 0, 0.5);
+}
+
+.table-scroll {
+    position:relative;
+    max-width:98%!important;
+    margin:auto;
+    overflow:hidden;
+    /*border:1px solid #000;*/
+}
+.table-wrap {
+    width:100%;
+    overflow:auto;
+}
+.table-scroll table {
+    width:100%;
+    margin:auto;
+    border-collapse:separate;
+    border-spacing:0;
+}
+.table-scroll th, .table-scroll td {
+    padding:5px 10px;
+    border:1px solid #000;
+    background:#fff;
+    white-space:nowrap;
+    vertical-align:top;
+}
+.table-scroll thead, .table-scroll tfoot {
+    background:#f9f9f9;
+    text-align: center;
+}
+.clone {
+    position:absolute;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+.clone th, .clone td {
+    visibility:hidden;
+    text-align: center;
+
+}
+.clone td, .clone th {
+    border-color:transparent;
+    text-align: center;
+}
+.clone tbody th {
+    visibility:visible;
+    color:red;
+}
+
+.clone .fixed-side {
+    border:1px solid #000;
+    background:#eee;
+    visibility:visible;
+    text-align: center;
+}
+
+teble{
+    text-align: center;
+}
+.clone thead, .clone tfoot{background:transparent;}
+
+.mb-150px{
+    margin-bottom: 150px!important;
+}
+
+.calc-height{
+    min-height: calc(100svh - 200px);
+}
+
+.num {
+    mso-number-format:General;
+}
+.text{
+    mso-text-format:"\@";/*force text*/
+}
+
+.text-red{
+    color: red;
+}
+
+
+
+input[type="date"].dd_mm_formatted {
+    /*position: relative;*/
+    color: white;
+}
+
+input[type="date"].dd_mm_formatted::before {
+    /*position: absolute;*/
+    /*top: 3px; left: 3px;*/
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+    opacity: 50;
+}
+
+input[type="date"].dd_mm_formatted::-webkit-datetime-edit, input[type="date"].dd_mm_formatted::-webkit-inner-spin-button, input[type="date"].dd_mm_formatted::-webkit-clear-button{
+    display: none;
+}
+
+input[type="date"].dd_mm_formatted::-webkit-calendar-picker-indicator{
+    position: absolute;
+    /*top: 3px;*/
+    right: 3%;
+    color: black;
+    opacity: 1;
+}
+
+input[type="date"].dd_mm_formatted::-webkit-calendar-picker-indicator{
+    position: absolute;
+    /*top: 3px;*/
+    right: 30px;
+    color: black;
+    opacity: 1;
+}
+
+.my-px-0-3em{
+    padding-left: 0.3em!important;
+    padding-right: 0.3em!important;
+}
+
+.fc-view-harness{
+    height: 450px!important;
+}
+
+.fc-daygrid-body, .fc-scrollgrid-sync-table, .fc-col-header {
+    width: 100%!important;
+}
+
+.dropdown-header.text-black{
+    color: black!important;
+    font-weight: 600;
+}
+
+
+.form-control-with-label {
+    position: relative;
+}
+.form-control-with-label .form-control,
+.form-control-with-label .bootstrap-select .dropdown-toggle {
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+.form-control-with-label.small-focus .form-control,
+.form-control-with-label.small-focus .bootstrap-select .dropdown-toggle {
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+.form-control-with-label.small-focus.small-field .form-control,
+.form-control-with-label.small-focus.small-field .bootstrap-select .dropdown-toggle {
+    padding-top: 17px;
+    padding-bottom: 5px;
+}
+.form-control-with-label .form-control.form-control-phone {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.form-control-with-label.small-focus .form-control.form-control-phone {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.form-group .form-control-with-label .bootstrap-select {
+    padding: 0 !important;
+}
+.form-control-with-label label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5px 12px;
+    font-size: 1em;
+    margin: 0;
+    pointer-events: none;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    min-height: 30px;
+}
+.form-control-with-label.small-focus label {
+    min-height: 20px;
+}
+.form-control-with-label.small-focus.focused label,
+.form-control-with-label.small-focus.always-focused label{
+    opacity: 0.5;
+    font-size: 12px;
+}
+.form-control-with-label:not(.always-focused):not(.focused) label {
+    min-height: 100%;
+}
+.form-control-with-label.textarea-label.small-focus:not(.always-focused):not(.focused) label {
+    min-height: 50px;
+}
+.form-control-with-label.textarea-label.small-focus.small-field:not(.always-focused):not(.focused) label {
+    min-height: 48px;
+}
+.form-control-with-label:not(.small-focus) .form-control,
+.form-control-with-label:not(.small-focus) .form-control-phone-code {
+    font-weight: 700;
+}
+.form-control-with-label .bootstrap-select > .dropdown-toggle::after {
+    margin-top: -15px;
+}
+.form-control-with-label.small-focus .bootstrap-select > .dropdown-toggle::after {
+    margin-top: -10px;
+}
+
+.form-control-with-label.small-focus .form-control,
+.form-control-with-label.small-focus .bootstrap-select .dropdown-toggle {
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+.form-control-with-label.small-focus.small-field .form-control,
+.form-control-with-label.small-focus.small-field .bootstrap-select .dropdown-toggle {
+    padding-top: 17px;
+    padding-bottom: 5px;
+}
+.form-control-with-label .form-control.form-control-phone {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.form-control-with-label.small-focus .form-control.form-control-phone {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.form-group .form-control-with-label .bootstrap-select {
+    padding: 0 !important;
+}
+.form-control-with-label label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5px 12px;
+    font-size: 1em;
+    margin: 0;
+    pointer-events: none;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    min-height: 30px;
+}
+.form-control-with-label.small-focus label {
+    min-height: 20px;
+}
+.form-control-with-label.small-focus.focused label,
+.form-control-with-label.small-focus.always-focused label{
+    opacity: 0.5;
+    font-size: 12px;
+}
+.form-control-with-label:not(.always-focused):not(.focused) label {
+    min-height: 100%;
+}
+.form-control-with-label.textarea-label.small-focus:not(.always-focused):not(.focused) label {
+    min-height: 50px;
+}
+.form-control-with-label.textarea-label.small-focus.small-field:not(.always-focused):not(.focused) label {
+    min-height: 48px;
+}
+.form-control-with-label:not(.small-focus) .form-control,
+.form-control-with-label:not(.small-focus) .form-control-phone-code {
+    font-weight: 700;
+}
+.form-control-with-label .bootstrap-select > .dropdown-toggle::after {
+    margin-top: -15px;
+}
+.form-control-with-label.small-focus .bootstrap-select > .dropdown-toggle::after {
+    margin-top: -10px;
+}
+
+/* sm */
+@media (max-width: 767.98px) {
+    /*Form*/
+    .form-control-with-label.small-focus-md .form-control-phone-code {
+        padding-top: 15px;
+    }
+    .form-control-with-label.small-focus-md .form-control,
+    .form-control-with-label.small-focus-md .bootstrap-select .dropdown-toggle {
+        padding-top: 25px;
+        padding-bottom: 5px;
+    }
+    .form-control-with-label.small-focus-md .form-control.form-control-phone {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .form-control-with-label.small-focus-md label {
+        min-height: 25px;
+    }
+    .form-control-with-label:not(.small-focus-md):not(.small-focus) .form-control,
+    .form-control-with-label:not(.small-focus-md):not(.small-focus) .form-control-phone-code {
+        font-weight: 700;
+    }
+    .form-control-with-label .bootstrap-select > .dropdown-toggle::after {
+        margin-top: -15px;
+    }
+    .form-control-with-label.small-focus-md .bootstrap-select > .dropdown-toggle::after {
+        margin-top: -10px;
+    }
+
+}
+
+.custom-div {
+    top: 7px;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    border-radius: .25rem;
+    border: 1px solid rgba(0,30,91,0.1);
+    background-color: var(--white);
+}
+.input-group .form-control {
+    border: 0;
+}
+.input-group .input-group-append.line {
+    position: relative;
+}
+.input-group .input-group-append.line .btn {
+    height: 100%;
+}
+
+.input-group .input-group-append.line {
+    position: relative;
+}
+.input-group .input-group-append.line .btn {
+    height: 100%;
+}
+
+.border-radius-0{
+    border-radius: 0!important;
+}
+
+.select-width{
+    /*width: 'max-content',*/
+    min-width: 100% ;
+}
+
+.bootstrap-select.w-450px{
+    width: 350px!important;
+}
+
+.dropdown-menu{
+    max-width: none!important;
+    width: 'max-content';
+}
+
+.sk-custom-switch input:empty ~ span:after {
+    color: #f8f9fb;
+    background-color: #55b1de;
+}
+
+.sk-custom-switch input:empty ~ span:before {
+    background-color: #ffffff;
+}
+
+.sk-custom-switch input:checked ~ span:after {
+    background-color: var(--primary);
+}
+
+.sk-switch-grey input:empty ~ span:after {
+    background-color:  #55b1de;
+}
+
+.sk-switch-grey input:empty ~ span:before {
+    background-color: rgba(125, 140, 171, 0.32);
+}
+
+.sk-switch-grey input:checked ~ span:after {
+    background-color: var(--primary);
+}
+
+
+

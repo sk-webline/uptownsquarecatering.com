@@ -1,0 +1,2 @@
+<h1>{{ translate('Hello') }} {{ $user->name }}!</h1>
+<p>{{ translate('Your partnership request has been accepted. Please login to your account to see more details and to view our wholesale prices.') }}</p>

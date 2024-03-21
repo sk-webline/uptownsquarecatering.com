@@ -1,0 +1,7 @@
+#calendar .fc-multimonth-daygrid-table {
+    max-height: 400px!important
+}
+
+.fc .fc-bg-event {
+    opacity: 1!important;
+}

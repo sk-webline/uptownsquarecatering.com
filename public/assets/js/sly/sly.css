@@ -1,0 +1,49 @@
+/* Frame */
+.sly-frame {
+    overflow: hidden;
+}
+.sly-frame ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    white-space: nowrap;
+}
+.sly-frame ul li {
+    cursor: pointer;
+    padding: 0;
+    display: inline-block;
+    white-space: normal;
+}
+/* Scrollbar */
+.sly-scrollbar {
+    height: 2px;
+    line-height: 0;
+    background-color: rgba(0,0,0,0.1);
+}
+.sly-scrollbar .sly-handle {
+    width: 100px;
+    height: 3px;
+    background: var(--primary);
+    cursor: pointer;
+    position: relative;
+    top: 0;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.sly-scrollbar .sly-handle:hover {
+    height: 6px;
+    top: -2px;
+}
+.sly-scrollbar .sly-handle .sly-mousearea {
+    position: absolute;
+    top: -9px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+}
+/* Controls */
+.sly-controls .prev,
+.sly-controls .next {
+    cursor: pointer;
+}
