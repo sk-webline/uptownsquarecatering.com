@@ -40,7 +40,6 @@ class CreateAppOrders extends Migration
             $table->integer('viewed')->default(0)->nullable(false);
             $table->integer('delivery_viewed')->default(1)->nullable(false);
             $table->integer('payment_status_viewed')->default(1)->nullable(true);
-            $table->tinyInteger('confirm_page_seen')->default(0)->nullable(false);
             $table->timestamps();
         });
     }

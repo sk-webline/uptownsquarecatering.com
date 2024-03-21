@@ -48,7 +48,6 @@ class CreateAppVivaWalletLogs extends Migration
             $table->double('total',10, 2)->nullable(false);
             $table->integer('ErrorCode')->default(null)->nullable(true);
             $table->string('ErrorMessage')->default(null)->nullable(true);
-            $table->tinyInteger('start_process')->default(0)->nullable(false);
             $table->tinyInteger('run_script')->default(0)->nullable(false);
             $table->tinyInteger('callback')->default(0)->nullable(false);
             $table->tinyInteger('pending_page_seen')->default(0)->nullable(false);

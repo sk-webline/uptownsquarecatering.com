@@ -28,7 +28,7 @@ class CreateAppOrderDetails extends Migration
             $table->double('disc_amount',2)->nullable(true);
             $table->double('disc_percentage',2)->nullable(true);
             $table->tinyInteger('refunded')->default(0)->nullable(false);
-            $table->dateTime('refunded_items')->default(0)->nullable(false);
+            $table->integer('refunded_items')->default(0)->nullable(false);
             $table->string('payment_status', 15)->default('unpaid')->charset('utf8mb4')->collation('utf8mb4_unicode_ci')->nullable(false);
             $table->string('delivery_status', 20)->default('pending')->charset('utf8mb4')->collation('utf8mb4_unicode_ci')->nullable(true);
             $table->timestamps();
