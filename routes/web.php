@@ -419,6 +419,9 @@ Route::group(['middleware' => ['coming_soon']], function () {
     Route::get('/blog/{slug}', 'BlogController@blog_details')->name('blog.details');
     Route::post('/blog/load_blog', 'BlogController@load_blog')->name('blog.load_blog');
 
+    // Tutorials
+    Route::get('/tutorial', 'TutorialController@tutorial_page')->name('tutorial');
+
     //Custom page
     Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');
 
