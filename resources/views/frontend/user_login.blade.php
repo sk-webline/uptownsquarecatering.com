@@ -38,7 +38,7 @@
                             {{--                            @endif--}}
 
                             <div class="mt-15px">
-                                <div class="form-group mb-20px mb-sm-30px">
+                                <div class="form-group mb-20px mb-sm-30px position-relative">
                                     <div class="input-group" id="rfid_div">
                                         <div class="form-control-with-label small-focus animate flex-grow-1">
                                             <label>{{ translate('RFID no.')}}</label>
@@ -108,6 +108,12 @@
                                     </div>
                                     <div id="rfid-error-msg" class="invalid-feedback absolute fs-14"
                                          style="display: none">{{ translate('This RFID does not exist')}}</div>
+
+                                    <a href="{{route('tutorial')}}?question=1" class="register-question-link" target="_blank" data-toggle="tooltip" data-title="{{ toUpper(translate('I need help')) }}">
+                                        <svg class="h-15px h-sm-20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.39 17.38">
+                                            <use xlink:href="{{static_asset('assets/img/tutorials/question.svg')}}#content"></use>
+                                        </svg>
+                                    </a>
                                 </div>
 
 

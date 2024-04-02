@@ -108,7 +108,18 @@
             <div class="col-md-6 col-xxl-4" data-aos="zoom-in">
                 <div class="bg-primary-10 fs-14 lg-fs-16 custom-packet-style">
                     <div class="border-bottom border-width-2 border-primary-100 px-13px px-md-20px py-15px">
-                        <h3 class="m-0 fs-22 md-fs-25 fw-700 lh-1">{{ translate('Make your own plan') }}</h3>
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="m-0 fs-22 md-fs-25 fw-700 lh-1">{{ translate('Make your own plan') }}</h3>
+                            </div>
+                            <div class="col-auto">
+                                <a href="{{route('tutorial')}}?question=6" class="plan-question-link" target="_blank" data-toggle="tooltip" data-title="{{ toUpper(translate('I need help')) }}">
+                                    <svg class="h-15px h-sm-20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.39 17.38">
+                                        <use xlink:href="{{static_asset('assets/img/tutorials/question.svg')}}#content"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="px-13px px-md-20px py-20px">
                         <div class="row gutters-10">
@@ -773,14 +784,12 @@
                 },
                 events: [
 
-                        @foreach(Session::get('full_dates') as $full_date)
-
+                    @foreach(Session::get('full_dates') as $full_date)
                     {
                         {{--id: '{{$full_date}}',--}}
                         start: '{{$full_date}}', // '2023-07-31' ,
                         display: 'background',
                         color: 'var(--grey)',
-
                     },
                     @endforeach
                 ]
