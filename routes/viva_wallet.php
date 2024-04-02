@@ -38,7 +38,7 @@
 
     Route::post('application/refund_order', 'AppVivaController@cancel_order')->name('app_viva.refund_order');
 
-    Route::get('application/test', 'AppVivaController@test')->name('app_viva.test');
+//    Route::get('application/test', 'AppVivaController@test')->name('app_viva.test');
 
 
 
