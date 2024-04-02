@@ -15,19 +15,7 @@ class ServiceWorkerController extends Controller
 
     public function getCanteenRoutes()
     {
-        $filePath = base_path('routes/application.php');
-
-        if (File::exists($filePath)) {
-//            $routes = include $filePath;
-//            return response()->json($routes);
-
-
-            $content = File::get($filePath);
-            $routes = $this->parseRoutes($content);
-            return response()->json($routes);
-        }
-
-        return response()->json(['error' => 'Failed to fetch routes', 'message' => 'File does not exist']);
+        return response()->json(config('pwa.routes'));
     }
 
     private function parseRoutes($content)
