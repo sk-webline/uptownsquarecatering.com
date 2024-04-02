@@ -255,6 +255,11 @@
                                         <span class="circle lh-1">+</span>
                                         {{ toUpper(translate('Add New Subscription')) }}
                                     </a>
+                                    <a href="{{route('tutorial')}}?question=4" class="dashboard-question-link" target="_blank" data-toggle="tooltip" data-title="{{ toUpper(translate('I need help')) }}">
+                                        <svg class="h-15px h-sm-20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.39 17.38">
+                                            <use xlink:href="{{static_asset('assets/img/tutorials/question.svg')}}#content"></use>
+                                        </svg>
+                                    </a>
                                 </div>
                             @else
 
@@ -292,6 +297,11 @@
                                         <a class="btn btn-primary btn-dashboard-primary btn-block  disabled ">
                                             <span class="circle ">+</span>
                                             {{ toUpper(translate('Add New Subscription')) }}
+                                        </a>
+                                        <a href="{{route('tutorial')}}?question=4" class="dashboard-question-link" target="_blank" data-toggle="tooltip" data-title="{{ toUpper(translate('I need help')) }}">
+                                            <svg class="h-15px h-sm-20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.39 17.38">
+                                                <use xlink:href="{{static_asset('assets/img/tutorials/question.svg')}}#content"></use>
+                                            </svg>
                                         </a>
                                     </div>
 
