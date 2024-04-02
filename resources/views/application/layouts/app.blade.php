@@ -5,8 +5,10 @@
         <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
         @endif
         <head>
-            <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="27f4c985-1c11-4696-8a8a-4c52a4967ae2" data-blockingmode="auto" type="text/javascript"></script>
-            <script id="CookieDeclaration" src="https://consent.cookiebot.com/27f4c985-1c11-4696-8a8a-4c52a4967ae2/cd.js" type="text/javascript" async></script>
+            @if(request()->server('HTTP_HOST') == 'www.uptownsquarecatering.com')
+                <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="27f4c985-1c11-4696-8a8a-4c52a4967ae2" data-blockingmode="auto" type="text/javascript"></script>
+                <script id="CookieDeclaration" src="https://consent.cookiebot.com/27f4c985-1c11-4696-8a8a-4c52a4967ae2/cd.js" type="text/javascript" async></script>
+            @endif
             <script src="https://www.googleoptimize.com/optimize.js?id=OPT-54KNCS3"></script>
             <meta name="csrf-token" content="{{ csrf_token() }}">
             <meta name="app-url" content="{{ getBaseURL() }}">
