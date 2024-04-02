@@ -3,43 +3,43 @@
 use App\Models\CanteenPurchase;
 use Carbon\Carbon;
 
-Route::get('/test', function() {
-
-//    $canteen_user = \App\Models\CanteenAppUser::find(1);
-    $canteen_user = auth()->guard('application')->user();
-
-    $order = \App\Models\AppOrder::find(18);
-
-    $date = '2024-01-26';
-    $break_num = 2;
-
-    $existing = CanteenPurchase::where('canteen_app_user_id', $canteen_user->id)->where('date', $date)->where('break_num', $break_num)->first();
-
-    if($existing != null && FALSE){
-        $meal_code = $existing->meal_code;
-    }else{
-        $temp = CanteenPurchase::where('date', $date)->where('break_num', $break_num)->max('meal_code');
-
-        $t = new CanteenPurchase();
-
-        $meal_code = $t->extractNumberFromMealCode($temp)+1;
-    }
-
-    dd($meal_code, $t->formatMealCode($meal_code));
-
-    $temp = CanteenPurchase::where('date', $date)->where('break_num', $break_num)->max('meal_code');
-
-    dd($temp);
-
-
-    return view('emails.application_invoice', compact('order') );
-
-});
-Route::get('/debug', function() {
-//    \Illuminate\Support\Facades\Session::flash();
-
-    dd(\Illuminate\Support\Facades\Session::all());
-});
+//Route::get('/test', function() {
+//
+////    $canteen_user = \App\Models\CanteenAppUser::find(1);
+//    $canteen_user = auth()->guard('application')->user();
+//
+//    $order = \App\Models\AppOrder::find(18);
+//
+//    $date = '2024-01-26';
+//    $break_num = 2;
+//
+//    $existing = CanteenPurchase::where('canteen_app_user_id', $canteen_user->id)->where('date', $date)->where('break_num', $break_num)->first();
+//
+//    if($existing != null && FALSE){
+//        $meal_code = $existing->meal_code;
+//    }else{
+//        $temp = CanteenPurchase::where('date', $date)->where('break_num', $break_num)->max('meal_code');
+//
+//        $t = new CanteenPurchase();
+//
+//        $meal_code = $t->extractNumberFromMealCode($temp)+1;
+//    }
+//
+//    dd($meal_code, $t->formatMealCode($meal_code));
+//
+//    $temp = CanteenPurchase::where('date', $date)->where('break_num', $break_num)->max('meal_code');
+//
+//    dd($temp);
+//
+//
+//    return view('emails.application_invoice', compact('order') );
+//
+//});
+//Route::get('/debug', function() {
+////    \Illuminate\Support\Facades\Session::flash();
+//
+//    dd(\Illuminate\Support\Facades\Session::all());
+//});
 
 Route::get('/canteen-service-worker-routes', 'ServiceWorkerController@getCanteenRoutes');
 Route::get('/', 'ApplicationController@login');
