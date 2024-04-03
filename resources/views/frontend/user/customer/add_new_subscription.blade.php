@@ -180,8 +180,7 @@
                             <span id="custom_package_error"></span>
                         </div>
 
-                        <button id="custom"
-                                class="btn btn-outline-primary btn-block fs-16 mt-5px  addCateringPlanToCart">{{toUpper(translate('Add To Cart')) }}</button>
+                        <button id="custom" data-id="custom" class="btn btn-outline-primary btn-block fs-16 mt-5px  addCateringPlanToCart">{{toUpper(translate('Add To Cart')) }}</button>
 
 
                     </div>
